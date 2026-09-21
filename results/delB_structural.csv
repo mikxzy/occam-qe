@@ -1,0 +1,2 @@
+structure,a,b,c,alpha,beta,gamma,volume_A3,density_g_cm3,E_per_fu_Ry,pressure_kbar,stress_xx,stress_yy,stress_zz,stress_xy,stress_xz,stress_yz,max_force_eV_A,n_relax_steps,rms_displacement_vs_B0_A,max_displacement_vs_B0_A,delta_V_over_V0_pct,delta_a_pct,delta_c_pct,delta_alpha_pct
+B0,5.494444,5.494444,5.494444,55.8739,55.8739,55.8739,106.070774,4.629017,-238.16017619,-33.16,-35.98,-35.98,-27.53,-0.0,-0.0,0.0,,0,0.0,0.0,0.0,0.0,0.0,0.0
