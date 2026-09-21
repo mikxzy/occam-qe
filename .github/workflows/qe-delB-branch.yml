@@ -1,0 +1,46 @@
+name: qe-delB-branch
+# DEL B / B1 or B2: relax (fixed-cell) or vc-relax (full cell), then clean SCF, then
+# Gamma DFPT (epsil+trans+zeu), then dynmat.x ASR -- all in one job, driven by
+# scripts/run_delB_branch.py. B1 and B2 both start from the frozen DEL A structure
+# independently (B2 is NOT chained from B1), per instruction.
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: B1 (fixed-cell relax) or B2 (vc-relax)
+        required: true
+      np:
+        description: MPI ranks
+        default: "4"
+        required: true
+
+jobs:
+  branch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install QE (same pinned conda-forge build as rcm-spr-test4b-compute)
+        run: |
+          mamba install -y -c conda-forge "qe=7.5=h19104ac_2" "openmpi=5.0.10=hee33aa4_2" "libopenblas=0.3.34=pthreads_hf13c14d_2" "fftw=3.3.11=nompi_h3b011a4_100" "scalapack=2.2.0=h606478a_6" "elpa=2025.06.001=mpi_openmpi_h335e491_1" numpy
+          mamba clean -afy
+          mkdir -p /work && ln -s "$GITHUB_WORKSPACE/pseudo" /work/pseudo
+      - name: Run ${{ inputs.branch }} (relax/vc-relax -> clean scf -> ph.x -> dynmat.x)
+        env:
+          OMPI_ALLOW_RUN_AS_ROOT: "1"
+          OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+          OMP_NUM_THREADS: "1"
+        run: |
+          python scripts/run_delB_branch.py --branch "${{ inputs.branch }}" --np "${{ inputs.np }}" --out "artifacts/${{ inputs.branch }}" || echo "run_delB_branch exit $?"
+          cat "artifacts/${{ inputs.branch }}/result.json" | head -200
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delB-${{ inputs.branch }}
+          path: artifacts/${{ inputs.branch }}
+          if-no-files-found: error
+          retention-days: 90
