@@ -119,6 +119,17 @@ This can only be settled by DEL B's `vc-relax`/`relax` baseline (not started —
 which is exactly the kind of "negative/unstable result reported, not hidden" the task asks
 for (rule 8), not a defect in this convergence study.
 
+## Addendum (DEL B, B0): the -29.9 cm-1 doublet was an ASR artifact, not a soft mode
+
+DEL B's B0 step re-ran this exact structure's DFPT with `dynmat.x` ASR correction
+(`asr='crystal'`), which DEL A's original run did not apply. Result: the 3 acoustic modes,
+which should be exactly 0 cm-1 at Gamma, were badly ASR-violating in the raw output
+(spread across -29.898 (x2) and +7.477 cm-1 -- tens of cm-1 from zero, not the few cm-1
+one might casually dismiss as noise). After ASR correction they collapse to ~0.00 cm-1 as
+required, and are **not** part of the optical spectrum. Only 2 genuine imaginary optical
+modes remain: -111.88 and -66.61 cm-1 (ASR-corrected) -- consistent with, and slightly
+shifted from, DEL A's raw -110.90/-66.61 cm-1. Full detail: `DEL_B_STRUCTURAL_RELAXATION.md`.
+
 ## DEL A status: complete for its own scope
 
 Numerical convergence (energy, full stress tensor, dielectric tensor, Γ-phonons) has been
