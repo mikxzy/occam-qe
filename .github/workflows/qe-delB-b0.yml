@@ -1,0 +1,42 @@
+name: qe-delB-b0
+# DEL B / B0: re-run the exact DEL A production input (byte-identical, hash-verified) to
+# capture what DEL A didn't save -- the dynamical-matrix eigenvectors (mat.dyn) and Born
+# effective charges (zeu) needed for DEL B's mode-tracking and dielectric comparison.
+
+on:
+  workflow_dispatch:
+    inputs:
+      np:
+        description: MPI ranks
+        default: "4"
+        required: true
+
+jobs:
+  b0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install QE (same pinned conda-forge build as rcm-spr-test4b-compute)
+        run: |
+          mamba install -y -c conda-forge "qe=7.5=h19104ac_2" "openmpi=5.0.10=hee33aa4_2" "libopenblas=0.3.34=pthreads_hf13c14d_2" "fftw=3.3.11=nompi_h3b011a4_100" "scalapack=2.2.0=h606478a_6" "elpa=2025.06.001=mpi_openmpi_h335e491_1" numpy
+          mamba clean -afy
+          mkdir -p /work && ln -s "$GITHUB_WORKSPACE/pseudo" /work/pseudo
+      - name: Run B0 (scf -> ph.x epsil+trans+zeu -> dynmat.x asr)
+        env:
+          OMPI_ALLOW_RUN_AS_ROOT: "1"
+          OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+          OMP_NUM_THREADS: "1"
+        run: |
+          python scripts/run_delB_b0.py --np "${{ inputs.np }}" --out "artifacts/B0" || echo "run_delB_b0 exit $?"
+          cat "artifacts/B0/result.json" | head -150
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delB-B0
+          path: artifacts/B0
+          if-no-files-found: error
+          retention-days: 90

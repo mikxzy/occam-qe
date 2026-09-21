@@ -11,5 +11,15 @@ runs/convergence_dfpt/*/pw.err
 runs/convergence_dfpt/*/ph.out
 runs/convergence_dfpt/*/ph.err
 runs/convergence_dfpt/*/tmp/
+runs/delB/*/artifact/
+runs/delB/*/pw.out
+runs/delB/*/pw.err
+runs/delB/*/ph.out
+runs/delB/*/ph.err
+runs/delB/*/dynmat.out
+runs/delB/*/dynmat.err
+runs/delB/*/mat.dyn*
+runs/delB/*/tmp/
+runs/delB/*/clean_scf/tmp/
 collected/
 artifacts/

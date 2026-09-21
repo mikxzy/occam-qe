@@ -1,0 +1,19 @@
+{
+ "B0": {
+  "calc": "scf+dfpt-gamma-zeu",
+  "dir": "runs/delB/B0",
+  "note": "byte-identical to runs/convergence_dfpt/dfpt_ecut120_k4/pw.in",
+  "phin_sha256": "d61b4b661217611070f7b5ee2d872970e00255fba49b57676bcac77df894327c",
+  "pwin_sha256": "6d90d7d3efd77ee7cb0dab51e0e9d69fb31690dd2dd9dbc9723a1a607ba90c74"
+ },
+ "B1": {
+  "calc": "relax(fixed-cell)+scf+dfpt-gamma-zeu",
+  "dir": "runs/delB/B1",
+  "relax_in_sha256": "573860de28942cfe312ff53618bb828304c6d73f55ca2cf41284301aa0038290"
+ },
+ "B2": {
+  "calc": "vc-relax+scf+dfpt-gamma-zeu",
+  "dir": "runs/delB/B2",
+  "vcrelax_in_sha256": "15795664cb0739b5897d8f03e0caf186ceb8c9f4058ae986dfd4ab12d31681a9"
+ }
+}
