@@ -196,7 +196,7 @@ def main():
     res["fildyn_used"] = fildyn
     rc4 = None
     if fildyn:
-        (scf_dir / "dynmat.in").write_text(f"&input\n  fildyn='{fildyn}'\n  asr='crystal'\n  fileout='mat.dyn.asr'\n/\n", newline="\n")
+        (scf_dir / "dynmat.in").write_text(f"&input\n  fildyn='{fildyn}'\n  asr='crystal'\n  filout='dynmat.freq.out'\n  fileig='dynmat.eig.out'\n/\n", newline="\n")
         rc4 = run(f'cd "{scf_dir}" && dynmat.x -in dynmat.in > dynmat.out 2> dynmat.err')
     res["dynmat_exit_code"] = rc4
     subprocess.run("rm -rf /tmp/qe_*", shell=True)
@@ -212,7 +212,7 @@ def main():
     scf_out_dir = out / "clean_scf"
     scf_out_dir.mkdir(exist_ok=True)
     for f in ["pw.in", "pw.out", "ph.in", "ph.out", "dynmat.in", "dynmat.out",
-              "mat.dyn", "mat.dyn1", "mat.dyn.asr"]:
+              "mat.dyn", "mat.dyn1", "dynmat.freq.out", "dynmat.eig.out"]:
         if (scf_dir / f).exists():
             shutil.copy(scf_dir / f, scf_out_dir / f)
     json.dump(res, open(out / "result.json", "w"), indent=1, default=str)

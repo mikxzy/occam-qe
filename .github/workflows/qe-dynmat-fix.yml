@@ -1,0 +1,33 @@
+name: qe-dynmat-fix
+# One-off: dynmat.x had an invalid namelist variable ('fileout' instead of 'filout') on
+# its first B0 invocation. This re-runs ONLY dynmat.x on the already-computed mat.dyn
+# (committed at runs/delB/B0/dynmat_fix/) instead of redoing the expensive pw.x+ph.x
+# stages. Remove this workflow once B0/B1/B2 all use the corrected namelist natively.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install QE
+        run: |
+          mamba install -y -c conda-forge "qe=7.5=h19104ac_2"
+          mamba clean -afy
+      - name: Run dynmat.x with the corrected namelist
+        run: |
+          python scripts/run_dynmat_fix.py --dir runs/delB/B0/dynmat_fix
+          cat runs/delB/B0/dynmat_fix/dynmat.out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dynmat-fix
+          path: runs/delB/B0/dynmat_fix
+          if-no-files-found: error
+          retention-days: 30

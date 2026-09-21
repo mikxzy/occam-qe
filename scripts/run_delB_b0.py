@@ -80,7 +80,7 @@ def main():
     fildyn_candidates = ["mat.dyn", "mat.dyn1"]
     fildyn = next((f for f in fildyn_candidates if (d / f).exists()), None)
     res["fildyn_used"] = fildyn
-    dynmat_in = f"&input\n  fildyn='{fildyn}'\n  asr='crystal'\n  fileout='mat.dyn.asr'\n/\n" if fildyn else None
+    dynmat_in = f"&input\n  fildyn='{fildyn}'\n  asr='crystal'\n  filout='dynmat.freq.out'\n  fileig='dynmat.eig.out'\n/\n" if fildyn else None
     p3_rc = None
     t2 = time.time()
     if dynmat_in:
@@ -117,7 +117,7 @@ def main():
     res["ended"] = time.strftime("%Y-%m-%dT%H:%M:%S")
 
     for f in ["pw.in", "ph.in", "pw.out", "ph.out", "dynmat.in", "dynmat.out",
-              "mat.dyn", "mat.dyn1", "mat.dyn.asr"]:
+              "mat.dyn", "mat.dyn1", "dynmat.freq.out", "dynmat.eig.out", "dynmat.err"]:
         if (d / f).exists():
             shutil.copy(d / f, out / f)
     json.dump(res, open(out / "result.json", "w"), indent=1, default=str)
