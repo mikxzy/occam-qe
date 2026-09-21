@@ -1,0 +1,42 @@
+# occam-qe environment probe — 2026-09-21T16:45:34Z
+## conda-forge packages
+  elpa                     2025.06.001   mpi_openmpi_h335e491_1   conda-forge
+  fftw                     3.3.11        nompi_h3b011a4_100       conda-forge
+  libopenblas              0.3.34        pthreads_hf13c14d_2      conda-forge
+  openmpi                  5.0.10        hee33aa4_2               conda-forge
+  python                   3.14.7        hcd007b5_106_cp314       conda-forge
+  qe                       7.5           h19104ac_2               conda-forge
+  scalapack                2.2.0         h606478a_6               conda-forge
+
+## executables on PATH
+pw.x: /opt/conda/bin/pw.x
+ph.x: /opt/conda/bin/ph.x
+dynmat.x: /opt/conda/bin/dynmat.x
+epsilon.x: /opt/conda/bin/epsilon.x
+
+## pw.x version banner
+
+     Program PWSCF v.7.5 starts on 21Sep2026 at 16:45:37 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+
+## ph.x version banner
+
+     Program PHONON v.7.5 starts on 21Sep2026 at 16:45:38 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+
+## epsilon.x presence
+
+     Program epsilon v.7.5 starts on 21Sep2026 at 16:45:40 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+
+## runner
+4
+MemTotal:       16373452 kB
+MemAvailable:   15116516 kB
+Model name:                              AMD EPYC 7763 64-Core Processor
