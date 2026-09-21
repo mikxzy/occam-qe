@@ -1,0 +1,52 @@
+name: qe-environment
+# DEL A rule 1-2: identify the installed Quantum ESPRESSO version/executables and save it.
+# This workflow only produces an artifact (qe_version.txt); committing it into
+# 00_environment/ is done by hand after inspection, same convention as the sibling
+# rcm-spr-test4b-compute repo (CI computes, a human/agent reviews and commits).
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install QE (same pinned conda-forge build as rcm-spr-test4b-compute)
+        run: |
+          mamba install -y -c conda-forge "qe=7.5=h19104ac_2" "openmpi=5.0.10=hee33aa4_2" "libopenblas=0.3.34=pthreads_hf13c14d_2" "fftw=3.3.11=nompi_h3b011a4_100" "scalapack=2.2.0=h606478a_6" "elpa=2025.06.001=mpi_openmpi_h335e491_1"
+          mamba clean -afy
+      - name: Record version / build / executable info
+        run: |
+          {
+            echo "# occam-qe environment probe — $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "## conda-forge packages"
+            mamba list | grep -iE '^ *(qe|openmpi|libopenblas|fftw|scalapack|elpa|python) '
+            echo
+            echo "## executables on PATH"
+            for exe in pw.x ph.x dynmat.x epsilon.x; do
+              p=$(which "$exe" 2>/dev/null || echo "NOT FOUND")
+              echo "$exe: $p"
+            done
+            echo
+            echo "## pw.x version banner"
+            pw.x -h 2>&1 | head -5 || true
+            echo
+            echo "## ph.x version banner"
+            ph.x -h 2>&1 | head -5 || true
+            echo
+            echo "## epsilon.x presence"
+            epsilon.x -h 2>&1 | head -5 || echo "epsilon.x -h produced no banner (check exit code / help support separately)"
+            echo
+            echo "## runner"
+            nproc; grep -E 'MemTotal|MemAvailable' /proc/meminfo; lscpu | grep 'Model name'
+          } | tee qe_version.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qe-version
+          path: qe_version.txt
+          retention-days: 90

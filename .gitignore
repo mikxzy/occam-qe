@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+runs/convergence/*/artifact/
+runs/convergence/*/pw.out
+runs/convergence/*/pw.err
+runs/convergence/*/time.txt
+runs/convergence/*/tmp/

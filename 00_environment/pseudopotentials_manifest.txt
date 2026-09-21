@@ -1,0 +1,30 @@
+LiNbO3 QE pseudopotential manifest — Track A (PBEsol, norm-conserving)
+=======================================================================
+
+Source table : PseudoDojo NC-SR v0.4, PBEsol, "standard" accuracy
+Download URL : https://www.pseudo-dojo.org/pseudos/nc-sr-04_pbesol_standard_upf.tgz
+Generator    : ONCVPSP (Optimized Norm-Conserving Vanderbilt Pseudopotential),
+               scalar-relativistic v3.3.0, D.R. Hamann
+Reference    : D. R. Hamann, Phys. Rev. B 88, 085117 (2013)
+XC functional: PBEsol (identical for all three elements — verified from each UPF's
+               PP_HEADER `functional="PBESOL"` attribute)
+Pseudo type  : NC (norm-conserving) for all three — verified from `pseudo_type="NC"`,
+               `is_paw="F"` in each PP_HEADER, satisfying task rule 6 (avoid PAW/US for
+               the elop/epsilon.x path in DEL D/H).
+UPF format   : 2.0.1
+
+file        element   sha256
+----        -------   ------
+Li.upf      Li        f0ec56208a524f53f5b03c5a5c05ae135832c6d34d95f1022efdd64bfccd664a
+Nb.upf      Nb        8e564c7f6879f322880d825eec5e6a18419d09993810a4804a32a55117cc95cc
+O.upf       O         d91e3e76b237bb20c22fd32187fa3ed08250014cd11e74d0e13f305ccd73996f
+
+Verification: `sha256sum pseudo/*.upf` must reproduce the hashes above before any pw.x/ph.x
+job is dispatched (enforced by scripts/run_qe_job.py precondition check).
+
+Track B (LDA/PZ, norm-conserving) — for the DEL D elop=.true. smoke test
+--------------------------------------------------------------------------
+NOT YET SOURCED. Per task rule (DEL D), if `elop=.true.` requires LDA + norm-conserving,
+a separate, internally-consistent LDA/PZ NC pseudopotential set must be downloaded from the
+same PseudoDojo NC-SR v0.4 table (`xcf=pw`) and hashed here before Track B work starts.
+Do not reuse the PBEsol files above for an LDA calculation.
