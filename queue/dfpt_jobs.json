@@ -1,0 +1,44 @@
+{
+ "dfpt_ecut100_k4": {
+  "calc": "scf+dfpt-gamma",
+  "dir": "runs/convergence_dfpt/dfpt_ecut100_k4",
+  "ecutrho_Ry": 400.0,
+  "ecutwfc_Ry": 100.0,
+  "kgrid": [
+   4,
+   4,
+   4
+  ],
+  "n_atoms": 10,
+  "phin_sha256": "8d4ffb49617f8fcaef02325b4dfe8ecbb9a9aec2c8c6f472ebfa653c24ddd2e8",
+  "pwin_sha256": "874485d92528fa63caba161c26a97b40313d0dff94c1512ea83dc44726afd04f"
+ },
+ "dfpt_ecut120_k4": {
+  "calc": "scf+dfpt-gamma",
+  "dir": "runs/convergence_dfpt/dfpt_ecut120_k4",
+  "ecutrho_Ry": 480.0,
+  "ecutwfc_Ry": 120.0,
+  "kgrid": [
+   4,
+   4,
+   4
+  ],
+  "n_atoms": 10,
+  "phin_sha256": "8d4ffb49617f8fcaef02325b4dfe8ecbb9a9aec2c8c6f472ebfa653c24ddd2e8",
+  "pwin_sha256": "6d90d7d3efd77ee7cb0dab51e0e9d69fb31690dd2dd9dbc9723a1a607ba90c74"
+ },
+ "dfpt_ecut80_k4": {
+  "calc": "scf+dfpt-gamma",
+  "dir": "runs/convergence_dfpt/dfpt_ecut80_k4",
+  "ecutrho_Ry": 320.0,
+  "ecutwfc_Ry": 80.0,
+  "kgrid": [
+   4,
+   4,
+   4
+  ],
+  "n_atoms": 10,
+  "phin_sha256": "8d4ffb49617f8fcaef02325b4dfe8ecbb9a9aec2c8c6f472ebfa653c24ddd2e8",
+  "pwin_sha256": "e676318856e349a843aef9761ca146e3db52e3b370809ced7bb540cda1aed5d6"
+ }
+}

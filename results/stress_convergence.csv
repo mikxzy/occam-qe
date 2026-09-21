@@ -1,0 +1,13 @@
+pair,component,value_a_kbar,value_b_kbar,delta_abs_kbar,delta_rel_pct,abs_ok,rel_ok,component_ok
+scf_ecut100_k4_vs_scf_ecut120_k4,xx,-36.06,-35.98,0.08,0.2219,True,True,True
+scf_ecut100_k4_vs_scf_ecut120_k4,yy,-36.06,-35.98,0.08,0.2219,True,True,True
+scf_ecut100_k4_vs_scf_ecut120_k4,zz,-27.6,-27.53,0.07,0.2536,True,True,True
+scf_ecut100_k4_vs_scf_ecut120_k4,xy,-0.0,0.0,0.0,N/A (|ref|<0.05 kbar),True,True,True
+scf_ecut100_k4_vs_scf_ecut120_k4,xz,0.0,0.0,0.0,N/A (|ref|<0.05 kbar),True,True,True
+scf_ecut100_k4_vs_scf_ecut120_k4,yz,0.0,-0.0,0.0,N/A (|ref|<0.05 kbar),True,True,True
+scf_ecut80_k4_vs_scf_ecut100_k4,xx,-37.81,-36.06,1.75,4.6284,False,False,False
+scf_ecut80_k4_vs_scf_ecut100_k4,yy,-37.81,-36.06,1.75,4.6284,False,False,False
+scf_ecut80_k4_vs_scf_ecut100_k4,zz,-29.33,-27.6,1.73,5.8984,False,False,False
+scf_ecut80_k4_vs_scf_ecut100_k4,xy,0.0,-0.0,0.0,N/A (|ref|<0.05 kbar),True,True,True
+scf_ecut80_k4_vs_scf_ecut100_k4,xz,0.0,0.0,0.0,N/A (|ref|<0.05 kbar),True,True,True
+scf_ecut80_k4_vs_scf_ecut100_k4,yz,0.0,0.0,0.0,N/A (|ref|<0.05 kbar),True,True,True

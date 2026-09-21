@@ -5,5 +5,11 @@ runs/convergence/*/pw.out
 runs/convergence/*/pw.err
 runs/convergence/*/time.txt
 runs/convergence/*/tmp/
+runs/convergence_dfpt/*/artifact/
+runs/convergence_dfpt/*/pw.out
+runs/convergence_dfpt/*/pw.err
+runs/convergence_dfpt/*/ph.out
+runs/convergence_dfpt/*/ph.err
+runs/convergence_dfpt/*/tmp/
 collected/
 artifacts/
