@@ -38,6 +38,19 @@
   "n_atoms": 10,
   "pwin_sha256": "10f35f332284fd958508818fd35d13a4d047ef96d42886b992f6ee8f38adcaeb"
  },
+ "scf_ecut120_k4": {
+  "calc": "scf",
+  "dir": "runs/convergence/scf_ecut120_k4",
+  "ecutrho_Ry": 480.0,
+  "ecutwfc_Ry": 120.0,
+  "kgrid": [
+   4,
+   4,
+   4
+  ],
+  "n_atoms": 10,
+  "pwin_sha256": "6d90d7d3efd77ee7cb0dab51e0e9d69fb31690dd2dd9dbc9723a1a607ba90c74"
+ },
  "scf_ecut40_k2": {
   "calc": "scf",
   "dir": "runs/convergence/scf_ecut40_k2",
