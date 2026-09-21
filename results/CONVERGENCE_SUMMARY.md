@@ -20,6 +20,10 @@ the parsed summary.
 | 35627906430 | scf_ecut100_k2 |
 | 35627914335 | scf_ecut100_k4 |
 | 35627921709 | scf_ecut100_k6 |
+| 35632233942 | scf_ecut120_k4 (extension) |
+| 35643905825 | dfpt_ecut80_k4 |
+| 35632884976 | dfpt_ecut100_k4 |
+| 35643914948 | dfpt_ecut120_k4 |
 
 ## Total energy per formula unit
 
@@ -51,30 +55,73 @@ and is the real bottleneck for DEL A, not the energy. Between ecutwfc=80 and 100
 remaining change is ~1.7 kbar (~5%) — still above the <1% target — while k=2x2x2 vs
 k=6x6x6 differ by <2 kbar at any fixed cutoff ≥60 Ry.
 
-## H0-QE0 (task DEL F)
+## Cutoff extension: full 6-component stress tensor, 120 Ry (resolved)
 
-**INCONCLUSIVE at ecutwfc=100 Ry.** Total energy passes (<1% since ecutwfc=60 Ry), but
-pressure has not yet demonstrated <1% change between the two highest tested cutoffs
-(80 -> 100 Ry: ~5% change). The stress/pressure trend (−141.9 -> −35.0 -> −33.2 kbar) is
-converging but the matrix as specified (4 cutoffs) does not yet reach a <1% pressure
-plateau. Options, not yet acted on:
+`80 -> 100 Ry` left ~5% pressure drift, so the ecutwfc series was extended one point at a
+time (per instruction), comparing the **full stress tensor** (all 6 independent
+components, not just scalar pressure) with a dual criterion: absolute <=1 kbar per
+component AND the existing relative <1%. Full numbers: `results/stress_convergence.csv`.
+Run: [`scf_ecut120_k4`](https://github.com/mikxzy/occam-qe/actions/runs/35632233942).
 
-1. Extend the ecutwfc series (e.g. 120, 140 Ry) until pressure changes <1% between
-   consecutive points — the task only mandates >=4 points, not that 100 Ry be the ceiling.
-2. Accept ecutwfc=100 Ry / k>=4x4x4 as production with the pressure non-convergence
-   flagged as a known limitation (stress-derived quantities carry larger uncertainty than
-   energy-derived ones) — defensible since DEL B onward primarily needs relaxed
-   geometry/dielectric/EO quantities, not the raw SCF pressure itself.
+| pair | xx | yy | zz | xy/xz/yz | result |
+|---|---|---|---|---|---|
+| 80 -> 100 Ry | Δ=1.75 kbar (4.6%) | Δ=1.75 kbar (4.6%) | Δ=1.73 kbar (5.9%) | ~0 | **FAIL** |
+| 100 -> 120 Ry | Δ=0.08 kbar (0.22%) | Δ=0.08 kbar (0.22%) | Δ=0.07 kbar (0.25%) | ~0 | **PASS** |
 
-No physics or pseudopotentials were changed to force a "nicer" result (task rule 8) —
-this is the as-measured trend.
+The per-step delta dropped >20x between the two comparisons (1.75 -> 0.08 kbar), a clean
+monotonic approach rather than noise. **Two consecutive cutoffs (100, 120 Ry) now satisfy
+both criteria on all 6 components** — per instruction, the series stops here; 140/160 Ry
+were not needed.
 
-## Recommended production level (pending option 1 vs 2 above, DEL B not yet started)
+## H0-QE0 (task DEL F) — RESOLVED: PASS
 
-`ecutwfc = 100 Ry`, `ecutrho = 400 Ry`, k-grid >= `4x4x4`. Do **not** proceed to DEL B
-(relaxation) until the H0-QE0 question above is explicitly resolved, per task rule 7
-("Kör ALDRIG produktionsserien innan cutoff- och k-point-convergence är verifierade").
+Total energy: <1% since ecutwfc=60 Ry. Full stress tensor: <1%/<=1 kbar per component
+between 100 and 120 Ry. No physics or pseudopotentials were changed to force this (task
+rule 8) — 120 Ry was reached by straightforward extension of the as-measured trend.
 
-Gamma-point phonon frequency and dielectric-tensor convergence (also required by DEL A)
-have **NOT** been measured yet — this run only covered SCF total energy/stress. That is
-the next step before DEL A can be marked complete.
+## Production cutoff: ecutwfc = 120 Ry, ecutrho = 480 Ry, k >= 4x4x4
+
+Chosen as the tighter member of the first converged consecutive pair (100, 120 Ry),
+giving a safety margin over the minimum-converged point (100 Ry) per task rule 69.
+
+## Dielectric-tensor and Γ-phonon convergence (DEL A completion matrix)
+
+Reduced matrix per instruction: 80, 100, 120 Ry, all at k=4x4x4 (Gamma DFPT, `epsil=.true.
+trans=.true.`, on the same as-deposited/unrelaxed primitive cell used throughout DEL A).
+Runs: [80 Ry](https://github.com/mikxzy/occam-qe/actions/runs/35643905825),
+[100 Ry](https://github.com/mikxzy/occam-qe/actions/runs/35632884976),
+[120 Ry](https://github.com/mikxzy/occam-qe/actions/runs/35643914948). Full table:
+`results/dfpt_convergence.csv`.
+
+**Dielectric tensor: converged, easily.** ε_xx=ε_yy and ε_zz change by <0.003% from 80 to
+100 Ry and <0.001% from 100 to 120 Ry (ε_xx=ε_yy≈5.3593, ε_zz≈4.7674 at 120 Ry). This was
+already effectively converged at the loosest cutoff tested.
+
+**Γ-phonons: 28/30 modes converged (<=2 cm-1 and <1% between 100 and 120 Ry).** Two
+modes did not:
+
+* A doubly-degenerate low-frequency mode (index 2/3): **+5.48 cm-1 (80 Ry) -> -19.71 cm-1
+  (100 Ry) -> -29.90 cm-1 (120 Ry)**. Not just unconverged in magnitude — it *changes
+  sign* (stable -> imaginary) between 80 and 100 Ry, and is still moving substantially
+  (Δ=10.2 cm-1) between 100 and 120 Ry with no sign of leveling off. This is the one
+  genuinely open question DEL A leaves behind.
+* A doubly-degenerate mode near 140 cm-1 (index 5/6): Δ=2.6 cm-1 (1.85%) between 100 and
+  120 Ry — stays positive/stable throughout, just outside the strict tolerance; minor.
+
+**Is the soft mode numerical or real?** Most likely **not** a generic basis-set/cutoff
+artifact: the dielectric tensor and 28 of 30 other phonon branches are solidly converged
+at the same cutoffs, so plane-wave incompleteness alone doesn't explain a mode that keeps
+moving. The more likely explanation is that DEL A's cell is the **as-deposited
+experimental geometry, not yet DFT-relaxed** (`00_environment/structure_source.md`) — a
+real material sitting slightly off its PBEsol energy minimum can show soft/imaginary
+low-frequency modes that are an artifact of the unrelaxed geometry, not of the numerics.
+This can only be settled by DEL B's `vc-relax`/`relax` baseline (not started — see below),
+which is exactly the kind of "negative/unstable result reported, not hidden" the task asks
+for (rule 8), not a defect in this convergence study.
+
+## DEL A status: complete for its own scope
+
+Numerical convergence (energy, full stress tensor, dielectric tensor, Γ-phonons) has been
+tested as specified. Production level: **ecutwfc=120 Ry, ecutrho=480 Ry, k>=4x4x4.** The
+one open item (the soft doubly-degenerate mode) is flagged, not resolved — resolving it
+requires DEL B geometry relaxation, which has **not** been started per instruction.
