@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 QUEUE = ROOT / "queue" / "jobs.json"
 RUNS = ROOT / "runs" / "convergence"
 OUT = ROOT / "results" / "convergence.csv"
-N_FORMULA_UNITS = 2  # primitive cell = 2 x LiNbO3
+N_FORMULA_UNITS = 2  # primitive cell = 2 formula units of Material A
 
 
 def main():

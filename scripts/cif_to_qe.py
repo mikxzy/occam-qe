@@ -6,7 +6,7 @@ documented symmetry operators. Re-running this script on an unmodified CIF must
 reproduce byte-identical output (used by scripts/make_convergence_matrix.py to freeze
 pw.in files with a checkable sha256).
 
-    python scripts/cif_to_qe.py structures/LiNbO3_R3c_COD1541936.cif [--conventional]
+    python scripts/cif_to_qe.py structures/material_A_R3c_COD1541936.cif [--conventional]
 
 Requires: ase, spglib (see requirements.txt).
 """

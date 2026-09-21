@@ -1,6 +1,6 @@
 # DEL A — numerical convergence result
 
-All 12 frozen jobs in `queue/jobs.json` (4x ecutwfc x 3x k-grid, primitive 10-atom LiNbO3
+All 12 frozen jobs in `queue/jobs.json` (4x ecutwfc x 3x k-grid, primitive 10-atom Material A
 cell, PBEsol NC pseudopotentials) ran successfully on `qe-convergence-probe`
 (GitHub Actions, `ubuntu-latest`, QE 7.5). Raw `pw.out`/`result.json` per job are in the
 corresponding GitHub Actions run artifacts (run IDs below); `results/convergence.csv` is

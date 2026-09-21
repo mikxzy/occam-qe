@@ -1,4 +1,4 @@
-LiNbO3 QE pseudopotential manifest — Track A (PBEsol, norm-conserving)
+Material A QE pseudopotential manifest — Track A (PBEsol, norm-conserving)
 =======================================================================
 
 Source table : PseudoDojo NC-SR v0.4, PBEsol, "standard" accuracy

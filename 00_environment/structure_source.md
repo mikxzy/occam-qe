@@ -1,17 +1,17 @@
-# LiNbO3 structure source
+# Material A structure source
 
-**File:** `structures/LiNbO3_R3c_COD1541936.cif`
+**File:** `structures/material_A_R3c_COD1541936.cif`
 **Source:** Crystallography Open Database (COD), entry 1541936, fetched verbatim from
 `https://www.crystallography.net/cod/1541936.cif` (COD data is public domain).
 **SHA256:** `07eeecbb8bdcf02a9b061f76feb99d3c88edde4114dda52f19d5294998e5ac25`
 
 **Primary reference:** Abrahams, S.C.; Hamilton, W.C.; Reddy, J.M. (1966).
-"Ferroelectric lithium niobate. 4. Single crystal neutron diffraction study at 24°C."
+"Ferroelectric [material]. 4. Single crystal neutron diffraction study at 24°C." (title abbreviated here; see the COD entry for the exact published title)
 *Journal of Physics and Chemistry of Solids* 27, 1013–1018.
 
 Neutron diffraction (not X-ray), room temperature (24°C), ferroelectric phase — chosen
-over the other COD LiNbO3 entries because it is the canonical/most-cited primary structure
-determination for this material and neutron data resolves the O and Li positions more
+over the other COD entries for this material because it is the canonical/most-cited primary
+structure determination and neutron data resolves the O and Li positions more
 reliably than X-ray for this compound.
 
 ## As deposited (conventional hexagonal cell, from the CIF)
@@ -30,7 +30,7 @@ reliably than X-ray for this compound.
 
 The conventional cell above was symmetry-reduced with **spglib 2.7.0** (`find_primitive`,
 `symprec=1e-4`) via `scripts/cif_to_qe.py`. The primitive cell is the standard choice for
-LiNbO3 DFT work (2 formula units / 10 atoms instead of 6 formula units / 30 atoms) and is
+DFT work on this material (2 formula units / 10 atoms instead of 6 formula units / 30 atoms) and is
 a deterministic, verifiable transform of the CIF data — no coordinates were invented.
 
 * Space group of the reduced cell re-verified with spglib: R3c, #161 (round-trip check)
@@ -62,5 +62,5 @@ the starting point for DEL A convergence testing. Per the task spec, DEL B will 
 this "experimental cell + relaxed ions" baseline against a full `vc-relax` baseline before
 picking one as the production baseline — that choice is NOT made here.
 
-Regeneration: `python scripts/cif_to_qe.py structures/LiNbO3_R3c_COD1541936.cif` reproduces
+Regeneration: `python scripts/cif_to_qe.py structures/material_A_R3c_COD1541936.cif` reproduces
 the block above deterministically (requires `ase` and `spglib`, pinned in `requirements.txt`).

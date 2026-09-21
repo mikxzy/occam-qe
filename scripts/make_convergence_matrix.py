@@ -16,7 +16,7 @@ from cif_to_qe import load_primitive, render_qe_blocks
 from pw_scf_template import render
 
 ROOT = Path(__file__).resolve().parents[1]
-CIF = ROOT / "structures" / "LiNbO3_R3c_COD1541936.cif"
+CIF = ROOT / "structures" / "material_A_R3c_COD1541936.cif"
 RUNS = ROOT / "runs" / "convergence"
 QUEUE = ROOT / "queue" / "jobs.json"
 
