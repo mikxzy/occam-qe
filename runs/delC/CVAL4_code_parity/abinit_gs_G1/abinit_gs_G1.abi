@@ -44,7 +44,7 @@ shiftk 0.0 0.0 0.0
 
 # --- pseudopotentials (identical UPF2 files used by the QE branch) ---
 pp_dirpath "/work/pseudo"
-pseudos "Li_LDA.upf", "Nb_LDA.upf", "O_LDA.upf"
+pseudos "Li_LDA.upf, Nb_LDA.upf, O_LDA.upf"
 
 prtwf 1
 prtden 1

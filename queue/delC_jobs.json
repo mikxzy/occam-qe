@@ -152,7 +152,7 @@
   "pwin_sha256": "fc78dd0e5118ecf95659e9cd8532756d478ca4dd0c8d71446ebbc625594fa05f"
  },
  "CVAL4_abinit_gs_G1": {
-  "abi_sha256": "654b64843a6a4f4c85447bf5330df265e0be36f36f1cdbd0afef098df6cb054f",
+  "abi_sha256": "e0bd30aa9e58ebab7f4c6afd878c86e01bfd9fb4102bf5cdccc89504d8873f11",
   "calc": "abinit-scf-groundstate-parity-check",
   "dir": "runs/delC/CVAL4_code_parity/abinit_gs_G1",
   "note": "Step 0/1 of C-VAL4: ABINIT ground-state SCF at exact QE CVAL3_G1_k8 geometry/cutoff/k-grid/pseudopotentials, for eigenvalue/electron-count/dielectric-tensor parity check before any nonlinear-response comparison."

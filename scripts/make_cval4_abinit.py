@@ -113,7 +113,7 @@ shiftk 0.0 0.0 0.0
 
 # --- pseudopotentials (identical UPF2 files used by the QE branch) ---
 pp_dirpath "/work/pseudo"
-pseudos "{'", "'.join(pp_paths)}"
+pseudos "{', '.join(pp_paths)}"
 
 prtwf 1
 prtden 1
