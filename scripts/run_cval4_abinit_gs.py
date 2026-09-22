@@ -85,7 +85,7 @@ def main():
 
     t0 = time.time()
     p = subprocess.run(
-        f'cd "{d}" && mpirun --oversubscribe --bind-to none -np {a.np} abinit abinit_gs_G1.abi > run.log 2> run.err',
+        f'cd "{d}" && mpirun -np {a.np} abinit abinit_gs_G1.abi > run.log 2> run.err',
         shell=True)
     wall = time.time() - t0
     res.update(abinit_exit_code=p.returncode, wall_s=round(wall, 1))
