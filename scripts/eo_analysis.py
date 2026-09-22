@@ -48,6 +48,10 @@ def branches():
     if (b / "ph.out").exists():
         out["LDA@B0-geometry"] = dict(dir=b, geometry="B0 (DEL A/B original, unrelaxed), UNRELAXED under LDA",
                                        note="for C12: true B0-vs-B2 comparison, same (LDA) EO method")
+    b = ROOT / "runs" / "delC" / "C13_k6" / "artifact"
+    if (b / "ph.out").exists():
+        out["LDA-relaxed@k6"] = dict(dir=b, geometry="C3_vcrelax final geometry, k=6x6x6 (vs production 4x4x4)",
+                                      note="C13: numerical convergence check for H0-C3")
     return out
 
 

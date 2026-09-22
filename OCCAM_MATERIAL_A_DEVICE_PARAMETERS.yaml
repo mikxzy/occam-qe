@@ -1,0 +1,97 @@
+# DEL C, C16 -- validated Material A parameter set for the next Occam simulation level.
+# Only quantities whose physical interpretation and unit conversion are resolved are
+# included; nothing here was estimated to fill a gap. See results/*.md (local) for the
+# full derivation and results/occam_material_A_eo.csv / eo_tensor_*.csv for the numeric
+# backing data.
+
+material:
+  code: Material_A
+  geometry: LDA-relaxed (C3_vcrelax, internally consistent LDA equilibrium; NOT the
+    PBEsol-relaxed B2 geometry used through DEL B -- LDA pseudopotentials require their
+    own LDA-consistent relaxation, see C1-C3)
+  point_group: 3m (C3v), order 6, no inversion -- confirmed both from DEL A/B/C's own
+    QE symmetry detection and independently re-derived from first principles
+    (scripts/derive_3m_symmetry.py)
+  dynamical_stability: Gamma-stable, 0/30 imaginary optical modes (acoustic modes
+    correctly ASR-corrected to ~0 cm^-1)
+
+dielectric:
+  # static (omega=0) DFPT values, electronic/clamped-ion only -- NOT the 1550nm optical
+  # index, see limitations below and results/C8_dielectric_to_index.md (local)
+  epsilon_xx: 5.573331875
+  epsilon_yy: 5.573331876
+  epsilon_zz: 5.527594746
+  epsilon_off_diagonal: 0.0  # confirmed by symmetry and by QE's raw output
+  units: dimensionless (relative permittivity)
+  frequency: static (zero-frequency limit of the DFPT linear response)
+
+electro_optic:
+  # Pockels tensor r_mu,k, converted from QE's raw d(epsilon)/dE via
+  # r_ijk = -(dEps_ij/dEk)/(Eps_ii*Eps_jj), QE's own Ry-a.u.-to-pm/V factor (2.7502).
+  # Electronic (clamped-ion) contribution ONLY -- no ionic/phonon-mediated (lraman)
+  # contribution has been computed, see limitations.
+  r22:
+    value: 22.4675
+    units: pm/V
+    equals: [-r12, -r61]
+    symmetry_allowed: true
+  r13:
+    value: 35.0157
+    units: pm/V
+    equals: [r23]
+    symmetry_allowed: true
+  r51:
+    value: 35.3054
+    units: pm/V
+    equals: [r42]
+    symmetry_allowed: true
+  r33:
+    value: 33.0559
+    units: pm/V
+    symmetry_allowed: true
+    note: usually the device-relevant coefficient for a z-cut/extraordinary-axis modulator
+  contribution: electronic (clamped-ion) only -- see limitations
+  xc_functional: LDA (Perdew-Zunger/Perdew-Wang) -- NOT PBEsol; QE 7.5's elop is not
+    implemented for GGA functionals (see provenance)
+
+uncertainty:
+  numerical_convergence: "<=2% (largest observed: 1.71% on r33, k=4x4x4 vs 6x6x6 at
+    fixed ecutwfc=120 Ry, already confirmed converged for energy/stress)"
+  structural_sensitivity: "NOT a numerical uncertainty -- a real physical effect.
+    Using the wrong geometry changes every coefficient by 7-35% (B0-unrelaxed vs
+    LDA-relaxed). The LDA-relaxed values above are the physically correct reference;
+    do not substitute PBEsol-geometry or unrelaxed values."
+  finite_field_cross_check: not performed (see limitations)
+  ionic_contribution: not computed, likely non-negligible in magnitude relative to the
+    electronic piece reported here (see limitations)
+
+provenance:
+  qe_version: "7.5"
+  pseudopotentials:
+    family: PseudoDojo NC-SR v0.4, LDA (Perdew-Wang, xcf=pw), standard accuracy
+    files: [Li_LDA.upf, Nb_LDA.upf, O_LDA.upf]
+    generator: ONCVPSP, scalar-relativistic v3.3.0, D.R. Hamann
+  production_settings:
+    ecutwfc_Ry: 120.0
+    ecutrho_Ry: 480.0
+    kpoints: [4, 4, 4]
+    occupations: fixed
+    conv_thr: 1.0e-10
+  repo: mikxzy/occam-qe
+  del_c_branches_computed: [C2_PBEsol_EO (failed: GGA not implemented), C3_EO_at_PBEsol_geom,
+    C3_vcrelax, C3_EO_at_B0_geom, C13_k6]
+
+limitations:
+  - "Electronic (clamped-ion) EO response only -- the ionic/phonon-mediated
+    contribution (needs a separate lraman=.true. calculation, not run) is missing and
+    is typically NOT negligible for the static/low-frequency Pockels response relevant
+    to RF-rate device modulation."
+  - "Dielectric values are static DFPT, not the 1550nm optical index -- do not use
+    n=sqrt(epsilon) for device optics without a separate epsilon.x calculation."
+  - "No independent finite-field (lelfield) cross-check was performed -- H0-C1
+    (field-linearity) is untested, not assumed passing."
+  - "PBEsol elop is not implemented in QE 7.5 (GGA restriction) -- every EO number
+    here is LDA, while the rest of the Occam-1 pipeline (DEL A/B) used PBEsol. The
+    dielectric values above are therefore LDA values on the LDA-relaxed geometry, NOT
+    directly comparable to DEL A/B's PBEsol dielectric numbers without accounting for
+    both the XC-functional change and the geometry change."
