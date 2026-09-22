@@ -69,6 +69,28 @@
   "note": "starting geometry = B2 PBEsol-relaxed coordinates (initial guess only)",
   "vcrelax_in_sha256": "7f59561f79e2d8f93bc65fee9bc114a63f1af93db9251c1ade267402191fd68e"
  },
+ "CVAL2_AlAs_cutoff_ecut100_k8": {
+  "calc": "scf-alas-cutoff-check",
+  "dir": "runs/delC/CVAL2_testD_AlAs/cutoff_check/CVAL2_AlAs_cutoff_ecut100_k8",
+  "ecutwfc_Ry": 100.0,
+  "kgrid": [
+   8,
+   8,
+   8
+  ],
+  "pwin_sha256": "2c2345048b1af6355a3ced964aee6016af5da23934666998b11c47166dd68d2a"
+ },
+ "CVAL2_AlAs_cutoff_ecut120_k8": {
+  "calc": "scf-alas-cutoff-check",
+  "dir": "runs/delC/CVAL2_testD_AlAs/cutoff_check/CVAL2_AlAs_cutoff_ecut120_k8",
+  "ecutwfc_Ry": 120.0,
+  "kgrid": [
+   8,
+   8,
+   8
+  ],
+  "pwin_sha256": "c35994846fd62306a45bf1bff630efef88f545c68093d15f223ec5d2082e5b31"
+ },
  "CVAL2_AlAs_cutoff_ecut60_k6": {
   "calc": "scf-alas-cutoff-check",
   "dir": "runs/delC/CVAL2_testD_AlAs/cutoff_check/CVAL2_AlAs_cutoff_ecut60_k6",
