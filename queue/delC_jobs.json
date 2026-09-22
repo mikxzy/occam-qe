@@ -5,5 +5,54 @@
   "note": "pw.in byte-identical to runs/delB/B2/artifact/clean_scf/pw.in",
   "phin_sha256": "63b8e098c692f80d24bf9830e7e2916a6bf124e96cfdd47750e71296e05de6b3",
   "pwin_sha256": "4b564455ab67cec149a184aa1b480550ad68c24076e94958129ab743620957ff"
+ },
+ "C3_EO_at_PBEsol_geom": {
+  "calc": "scf+dfpt-gamma-zeu-elop-lda",
+  "dir": "runs/delC/C3_LDA/EO_at_PBEsol_geom",
+  "note": "LDA pseudopotentials + zeu + elop on B2's PBEsol-relaxed geometry, UNRELAXED under LDA -- methodological comparison only, not the internally-consistent LDA reference",
+  "phin_sha256": "7ffd07173b2fef1ad277919235732f4beeb5f037a3026cf9a937f4ff1bde91b7",
+  "pwin_sha256": "aa0deb10fb623f24d9566c0500015baa7851001342447f7a974c1a93a7084517"
+ },
+ "C3_cutoff_ecut100_k4": {
+  "calc": "scf-lda-cutoff-check",
+  "dir": "runs/delC/C3_LDA/cutoff_check/C3_cutoff_ecut100_k4",
+  "ecutrho_Ry": 400.0,
+  "ecutwfc_Ry": 100.0,
+  "kgrid": [
+   4,
+   4,
+   4
+  ],
+  "pwin_sha256": "a7011dca5f800f54dc9f072fa236501e6d7828a69abf7d283e391349d242e35b"
+ },
+ "C3_cutoff_ecut120_k4": {
+  "calc": "scf-lda-cutoff-check",
+  "dir": "runs/delC/C3_LDA/cutoff_check/C3_cutoff_ecut120_k4",
+  "ecutrho_Ry": 480.0,
+  "ecutwfc_Ry": 120.0,
+  "kgrid": [
+   4,
+   4,
+   4
+  ],
+  "pwin_sha256": "aa0deb10fb623f24d9566c0500015baa7851001342447f7a974c1a93a7084517"
+ },
+ "C3_cutoff_ecut80_k4": {
+  "calc": "scf-lda-cutoff-check",
+  "dir": "runs/delC/C3_LDA/cutoff_check/C3_cutoff_ecut80_k4",
+  "ecutrho_Ry": 320.0,
+  "ecutwfc_Ry": 80.0,
+  "kgrid": [
+   4,
+   4,
+   4
+  ],
+  "pwin_sha256": "9205bb81250e0833bb4c56e5a48cfdf188d4fb3bb1f4fedfb83b16c23753f175"
+ },
+ "C3_vcrelax": {
+  "calc": "vc-relax-lda",
+  "dir": "runs/delC/C3_LDA/vcrelax",
+  "note": "starting geometry = B2 PBEsol-relaxed coordinates (initial guess only)",
+  "vcrelax_in_sha256": "7f59561f79e2d8f93bc65fee9bc114a63f1af93db9251c1ade267402191fd68e"
  }
 }

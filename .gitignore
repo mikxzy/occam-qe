@@ -30,5 +30,17 @@ runs/delC/*/dynmat.out
 runs/delC/*/dynmat.err
 runs/delC/*/mat.dyn*
 runs/delC/*/tmp/
+runs/delC/C3_LDA/*/artifact/
+runs/delC/C3_LDA/*/*/artifact/
+runs/delC/C3_LDA/**/pw.out
+runs/delC/C3_LDA/**/pw.err
+runs/delC/C3_LDA/**/ph.out
+runs/delC/C3_LDA/**/ph.err
+runs/delC/C3_LDA/**/vcrelax.out
+runs/delC/C3_LDA/**/vcrelax.err
+runs/delC/C3_LDA/**/dynmat.out
+runs/delC/C3_LDA/**/dynmat.err
+runs/delC/C3_LDA/**/mat.dyn*
+runs/delC/C3_LDA/**/tmp/
 collected/
 artifacts/
