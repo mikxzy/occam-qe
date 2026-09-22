@@ -57,10 +57,18 @@ def main():
     out = Path(a.out) if a.out else d / "artifact"
     out.mkdir(parents=True, exist_ok=True)
 
-    res = dict(job=job, started=time.strftime("%Y-%m-%dT%H:%M:%S"), np=a.np)
+    res = dict(job=job, started=time.strftime("%Y-%m-%dT%H:%M:%S"), np=a.np, b2_cross_check=None)
 
-    ok = sha256(d / "pw.in") == job["pwin_sha256"] == sha256(B2_PWIN)
+    ok = sha256(d / "pw.in") == job["pwin_sha256"]
+    # B2's raw DEL B artifact (runs/delB/B2/artifact/) is gitignored (not committed) --
+    # this extra cross-check only runs when that local-only file happens to be present.
+    if B2_PWIN.exists():
+        ok = ok and sha256(d / "pw.in") == sha256(B2_PWIN)
+        res_note_b2_check = "B2 artifact cross-check performed"
+    else:
+        res_note_b2_check = "B2 artifact not present on this runner (gitignored) -- relied on queue/delC_jobs.json's committed sha256 only"
     ok = ok and sha256(d / "ph.in") == job["phin_sha256"]
+    res["b2_cross_check"] = res_note_b2_check
     manifest = (ROOT / "00_environment" / "pseudopotentials_manifest.txt").read_text()
     res["pseudopotentials"] = {}
     for el, fname in [("Li", "Li.upf"), ("Nb", "Nb.upf"), ("O", "O.upf")]:
