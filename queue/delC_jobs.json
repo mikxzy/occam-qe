@@ -68,5 +68,12 @@
   "dir": "runs/delC/C3_LDA/vcrelax",
   "note": "starting geometry = B2 PBEsol-relaxed coordinates (initial guess only)",
   "vcrelax_in_sha256": "7f59561f79e2d8f93bc65fee9bc114a63f1af93db9251c1ade267402191fd68e"
+ },
+ "CVAL2_testA_isolated_elop": {
+  "calc": "scf+dfpt-gamma-elop-only-lda",
+  "dir": "runs/delC/CVAL2_testA_isolated_elop",
+  "note": "C-VAL2 TEST A: identical geometry/pseudopotentials/cutoff/k-grid/tr2_ph to C3_vcrelax's clean_scf+DFPT, but trans=.false. zeu=.false. -- isolates elop from the phonon/Z* machinery",
+  "phin_sha256": "6b6b526954b00178fb465d477e3c56d5b14d46c2df925859e130464deee8042a",
+  "pwin_sha256": "99193c7ec2f930699998f452785c6060058427260c07ad0197175c1034f05976"
  }
 }

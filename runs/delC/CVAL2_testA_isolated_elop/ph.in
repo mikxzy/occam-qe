@@ -1,0 +1,12 @@
+Isolated elop test: epsil+elop only, trans=.false. (TEST A, C-VAL2)
+&inputph
+   prefix   = 'linbo3lda'
+   outdir   = './tmp/'
+   fildyn   = 'mat.dyn'
+   epsil    = .true.
+   trans    = .false.
+   zeu      = .false.
+   elop     = .true.
+   tr2_ph   = 1.0d-14
+/
+0.0 0.0 0.0

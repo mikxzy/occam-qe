@@ -47,7 +47,8 @@ def parse_elop(ph_out_text: str) -> dict:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--job", default="C3_EO_at_PBEsol_geom",
-                     choices=["C3_EO_at_PBEsol_geom", "C3_EO_at_B0_geom", "C13_k6"])
+                     choices=["C3_EO_at_PBEsol_geom", "C3_EO_at_B0_geom", "C13_k6",
+                              "CVAL2_testA_isolated_elop"])
     ap.add_argument("--np", type=int, default=4)
     ap.add_argument("--out")
     a = ap.parse_args()
