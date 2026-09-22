@@ -21,5 +21,14 @@ runs/delB/*/dynmat.err
 runs/delB/*/mat.dyn*
 runs/delB/*/tmp/
 runs/delB/*/clean_scf/tmp/
+runs/delC/*/artifact/
+runs/delC/*/pw.out
+runs/delC/*/pw.err
+runs/delC/*/ph.out
+runs/delC/*/ph.err
+runs/delC/*/dynmat.out
+runs/delC/*/dynmat.err
+runs/delC/*/mat.dyn*
+runs/delC/*/tmp/
 collected/
 artifacts/

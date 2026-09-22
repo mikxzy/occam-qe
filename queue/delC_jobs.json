@@ -1,0 +1,9 @@
+{
+ "C2_PBEsol_EO": {
+  "calc": "scf+dfpt-gamma-zeu-elop",
+  "dir": "runs/delC/C2_PBEsol_EO",
+  "note": "pw.in byte-identical to runs/delB/B2/artifact/clean_scf/pw.in",
+  "phin_sha256": "63b8e098c692f80d24bf9830e7e2916a6bf124e96cfdd47750e71296e05de6b3",
+  "pwin_sha256": "4b564455ab67cec149a184aa1b480550ad68c24076e94958129ab743620957ff"
+ }
+}

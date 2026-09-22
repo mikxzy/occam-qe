@@ -1,0 +1,12 @@
+Gamma-point DFPT: dielectric + Born charges + phonons + electro-optic tensor
+&inputph
+   prefix   = 'linbo3'
+   outdir   = './tmp/'
+   fildyn   = 'mat.dyn'
+   epsil    = .true.
+   trans    = .true.
+   zeu      = .true.
+   elop     = .true.
+   tr2_ph   = 1.0d-14
+/
+0.0 0.0 0.0
