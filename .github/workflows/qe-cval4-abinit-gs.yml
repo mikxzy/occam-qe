@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install ABINIT
         run: |
-          mamba install -y -c conda-forge "abinit=10.0.3" openmpi numpy
+          mamba install -y -c conda-forge "abinit=10.0.3" numpy
           mamba clean -afy
           mkdir -p /work && ln -s "$GITHUB_WORKSPACE/pseudo" /work/pseudo
           abinit --version
