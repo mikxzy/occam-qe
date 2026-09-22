@@ -136,5 +136,19 @@
   "note": "C-VAL2 TEST A: identical geometry/pseudopotentials/cutoff/k-grid/tr2_ph to C3_vcrelax's clean_scf+DFPT, but trans=.false. zeu=.false. -- isolates elop from the phonon/Z* machinery",
   "phin_sha256": "6b6b526954b00178fb465d477e3c56d5b14d46c2df925859e130464deee8042a",
   "pwin_sha256": "99193c7ec2f930699998f452785c6060058427260c07ad0197175c1034f05976"
+ },
+ "CVAL3_G0_k8": {
+  "calc": "scf+dfpt-gamma-elop-only-lda-k8",
+  "dir": "runs/delC/CVAL3_geometry_parity/G0_k8",
+  "note": "G0 = our LDA-relaxed geometry (C3_vcrelax), k=8x8x8 (not tested before)",
+  "phin_sha256": "e00eadac59ee9b959754f862c8215829a3caad5eab8789114fc0a0671117f2a7",
+  "pwin_sha256": "3f60ab242dfae45be951a6acc4c1aa17814febc5fb516a1659a7ce08101d70cc"
+ },
+ "CVAL3_G1_k8": {
+  "calc": "scf+dfpt-gamma-elop-only-lda-k8",
+  "dir": "runs/delC/CVAL3_geometry_parity/G1_k8",
+  "note": "G1 = Veithen & Ghosez PRB 65, 214302 (2002) published LDA geometry, NOT relaxed with our pseudopotentials",
+  "phin_sha256": "e00eadac59ee9b959754f862c8215829a3caad5eab8789114fc0a0671117f2a7",
+  "pwin_sha256": "fc78dd0e5118ecf95659e9cd8532756d478ca4dd0c8d71446ebbc625594fa05f"
  }
 }

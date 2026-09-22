@@ -75,3 +75,10 @@ results/C12_structural_effect_on_EO.md
 results/C13_convergence.md
 DEL_C-VAL_ELECTRO_OPTIC_VALIDATION.md
 DEL_C-VAL2_QE_DISCREPANCY_ISOLATION.md
+DEL_C-VAL3_GEOMETRY_PARITY.md
+runs/delC/CVAL3_geometry_parity/*/artifact/
+runs/delC/CVAL3_geometry_parity/*/pw.out
+runs/delC/CVAL3_geometry_parity/*/pw.err
+runs/delC/CVAL3_geometry_parity/*/ph.out
+runs/delC/CVAL3_geometry_parity/*/ph.err
+runs/delC/CVAL3_geometry_parity/*/tmp/

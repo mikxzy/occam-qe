@@ -1,0 +1,12 @@
+Gamma-point DFPT: dielectric + electro-optic tensor (isolated elop, TEST A config)
+&inputph
+   prefix   = 'linbo3lda'
+   outdir   = './tmp/'
+   fildyn   = 'mat.dyn'
+   epsil    = .true.
+   trans    = .false.
+   zeu      = .false.
+   elop     = .true.
+   tr2_ph   = 1.0d-14
+/
+0.0 0.0 0.0
