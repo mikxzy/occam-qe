@@ -6,6 +6,13 @@
   "phin_sha256": "63b8e098c692f80d24bf9830e7e2916a6bf124e96cfdd47750e71296e05de6b3",
   "pwin_sha256": "4b564455ab67cec149a184aa1b480550ad68c24076e94958129ab743620957ff"
  },
+ "C3_EO_at_B0_geom": {
+  "calc": "scf+dfpt-gamma-zeu-elop-lda",
+  "dir": "runs/delC/C3_LDA/EO_at_B0_geom",
+  "note": "LDA pseudopotentials + zeu + elop on B0's ORIGINAL (DEL A/B unrelaxed) geometry -- for C12's true B0-vs-B2 comparison under the same (LDA) EO method",
+  "phin_sha256": "7ffd07173b2fef1ad277919235732f4beeb5f037a3026cf9a937f4ff1bde91b7",
+  "pwin_sha256": "b719f85e5f74dce15278be1bb4122af7958e7116918147ef5d6f312ca8630b92"
+ },
  "C3_EO_at_PBEsol_geom": {
   "calc": "scf+dfpt-gamma-zeu-elop-lda",
   "dir": "runs/delC/C3_LDA/EO_at_PBEsol_geom",

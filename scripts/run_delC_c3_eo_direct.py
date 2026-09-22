@@ -46,11 +46,12 @@ def parse_elop(ph_out_text: str) -> dict:
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--job", default="C3_EO_at_PBEsol_geom", choices=["C3_EO_at_PBEsol_geom", "C3_EO_at_B0_geom"])
     ap.add_argument("--np", type=int, default=4)
     ap.add_argument("--out")
     a = ap.parse_args()
 
-    job = json.loads(QUEUE.read_text())["C3_EO_at_PBEsol_geom"]
+    job = json.loads(QUEUE.read_text())[a.job]
     d = ROOT / job["dir"]
     out = Path(a.out) if a.out else d / "artifact"
     out.mkdir(parents=True, exist_ok=True)

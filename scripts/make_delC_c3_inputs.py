@@ -21,6 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 B2_PWIN = ROOT / "runs" / "delB" / "B2" / "artifact" / "clean_scf" / "pw.in"
+B0_PWIN = ROOT / "runs" / "convergence_dfpt" / "dfpt_ecut120_k4" / "pw.in"
 OUT_ROOT = ROOT / "runs" / "delC" / "C3_LDA"
 QUEUE = ROOT / "queue" / "delC_jobs.json"
 
@@ -149,6 +150,20 @@ def main():
         dir=str(eo_pbeg_dir.relative_to(ROOT)).replace("\\", "/"), calc="scf+dfpt-gamma-zeu-elop-lda",
         pwin_sha256=sha256(eo_pbeg_dir / "pw.in"), phin_sha256=sha256(eo_pbeg_dir / "ph.in"),
         note="LDA pseudopotentials + zeu + elop on B2's PBEsol-relaxed geometry, UNRELAXED under LDA -- methodological comparison only, not the internally-consistent LDA reference")
+
+    # --- LDA@B0-original-geometry EO (for C12: true B0-vs-B2 comparison, same LDA method) ---
+    b0_text = B0_PWIN.read_text()
+    b0_cell_block, b0_positions_block = extract_cell_and_positions(b0_text)
+    eo_b0_dir = OUT_ROOT / "EO_at_B0_geom"
+    eo_b0_dir.mkdir(parents=True, exist_ok=True)
+    eo_b0_pw_text = SCF_TEMPLATE.format(ecutwfc=120.0, ecutrho=480.0, cell_block=b0_cell_block,
+                                         species_block=LDA_SPECIES_BLOCK.rstrip("\n"), positions_block=b0_positions_block)
+    (eo_b0_dir / "pw.in").write_text(eo_b0_pw_text, newline="\n")
+    (eo_b0_dir / "ph.in").write_text(PH_EO_TEMPLATE, newline="\n")
+    jobs["C3_EO_at_B0_geom"] = dict(
+        dir=str(eo_b0_dir.relative_to(ROOT)).replace("\\", "/"), calc="scf+dfpt-gamma-zeu-elop-lda",
+        pwin_sha256=sha256(eo_b0_dir / "pw.in"), phin_sha256=sha256(eo_b0_dir / "ph.in"),
+        note="LDA pseudopotentials + zeu + elop on B0's ORIGINAL (DEL A/B unrelaxed) geometry -- for C12's true B0-vs-B2 comparison under the same (LDA) EO method")
 
     # --- vc-relax (production cutoff) ---
     vcr_dir = OUT_ROOT / "vcrelax"
