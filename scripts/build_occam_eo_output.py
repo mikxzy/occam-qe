@@ -15,7 +15,15 @@ OUT = ROOT / "results" / "occam_material_A_eo.csv"
 
 FIELDNAMES = ["parameter", "tensor_indices", "conventional_name", "value", "units", "xc",
               "geometry", "method", "clamped_or_relaxed", "numerical_uncertainty",
-              "symmetry_allowed", "usable_for_device_model", "notes"]
+              "symmetry_allowed", "usable_for_device_model", "validation_status", "notes"]
+
+# DEL C-VAL2: C-VAL5 (literature benchmark) found the electro_optic rows 8x-112x off
+# published electronic-only values for this material; C-VAL2 TEST A-D narrowed this to
+# MATERIAL_A_SPECIFIC_DISCREPANCY (not a generic QE elop bug, not the unit/frame/
+# r-transformation math). Values preserved unchanged for provenance -- marked, not
+# overwritten, per instruction. Dielectric rows are less directly implicated but not
+# independently re-confirmed either, so marked too rather than left looking validated.
+VALIDATION_STATUS = "SUSPECT_CVAL5_BENCHMARK_FAILURE"
 
 GEOM = "LDA-relaxed (C3_vcrelax, internally consistent LDA equilibrium)"
 METHOD_EPS = "DFPT (epsil=.true.), static/zero-frequency, electronic (clamped-ion)"
@@ -67,7 +75,7 @@ def main():
         w = csv.DictWriter(f, fieldnames=FIELDNAMES)
         w.writeheader()
         for r in ROWS:
-            w.writerow(r)
+            w.writerow(dict(r, validation_status=VALIDATION_STATUS))
     print(f"wrote {OUT.relative_to(ROOT)} ({len(ROWS)} parameters)")
 
 

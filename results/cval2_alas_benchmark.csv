@@ -1,0 +1,12 @@
+quantity,value
+G_raw_Ry_au,164.134646043
+G_dEpsdE_pmV,451.4031035474586
+eps_static,9.960530829
+chi2_implied,17.96075881415018
+d123_convention_chi2_over_2,8.98037940707509
+d123_convention_chi2_direct,17.96075881415018
+r_xyz_EO_coefficient_pmV,-4.549876124558739
+reference_d123_range_lo,32.0
+reference_d123_range_hi,35.0
+ratio_mine_over_ref_lo_chi2over2,0.28063685647109654
+ratio_mine_over_ref_lo_chi2direct,0.5612737129421931

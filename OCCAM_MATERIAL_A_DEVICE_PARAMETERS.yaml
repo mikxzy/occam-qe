@@ -1,8 +1,21 @@
-# DEL C, C16 -- validated Material A parameter set for the next Occam simulation level.
-# Only quantities whose physical interpretation and unit conversion are resolved are
-# included; nothing here was estimated to fill a gap. See results/*.md (local) for the
-# full derivation and results/occam_material_A_eo.csv / eo_tensor_*.csv for the numeric
-# backing data.
+# DEL C, C16 -- Material A parameter set. NUMERIC VALUES BELOW ARE PRESERVED FOR
+# PROVENANCE ONLY -- see validation_status. See results/*.md (local) for the full
+# derivation and results/occam_material_A_eo.csv / eo_tensor_*.csv / DEL_C-VAL*.md
+# (local) for the numeric backing data and the ongoing discrepancy investigation.
+
+validation_status: SUSPECT_CVAL5_BENCHMARK_FAILURE
+validation_status_detail: >
+  DEL C-VAL's literature benchmark (C-VAL5, vs Veithen/Gonze/Ghosez PRB 71, 125107,
+  2005) found the electro_optic coefficients below are 8x-112x larger than the
+  published electronic-only values for this material. DEL C-VAL2's follow-up (TEST
+  A-D) ruled out the unit-conversion factor, the coordinate frame, the r-transformation
+  math, and a trans=.true. interaction as causes, and found an independent AlAs control
+  calculation behaves in a normal ballpark (not the same catastrophic error) --
+  concluding MATERIAL_A_SPECIFIC_DISCREPANCY, not a generic QE elop bug. NOT YET
+  RESOLVED. Do not treat the electro_optic values below as validated; the dielectric
+  values are less directly implicated but have not been independently re-confirmed
+  either. See DEL_C-VAL_ELECTRO_OPTIC_VALIDATION.md and
+  DEL_C-VAL2_QE_DISCREPANCY_ISOLATION.md (both local-only) for full detail.
 
 material:
   code: Material_A
