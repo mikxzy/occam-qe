@@ -1,0 +1,40 @@
+name: qe-cval2-alas-vcrelax
+# DEL C-VAL2, TEST D: AlAs vc-relax -> clean SCF -> DFPT (epsil+trans+zeu+elop) -> dynmat.x.
+
+on:
+  workflow_dispatch:
+    inputs:
+      np:
+        description: MPI ranks
+        default: "4"
+        required: true
+
+jobs:
+  vcrelax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install QE
+        run: |
+          mamba install -y -c conda-forge "qe=7.5=h19104ac_2" "openmpi=5.0.10=hee33aa4_2" "libopenblas=0.3.34=pthreads_hf13c14d_2" "fftw=3.3.11=nompi_h3b011a4_100" "scalapack=2.2.0=h606478a_6" "elpa=2025.06.001=mpi_openmpi_h335e491_1" numpy
+          mamba clean -afy
+          mkdir -p /work && ln -s "$GITHUB_WORKSPACE/pseudo" /work/pseudo
+      - name: Run CVAL2_AlAs_vcrelax
+        env:
+          OMPI_ALLOW_RUN_AS_ROOT: "1"
+          OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+          OMP_NUM_THREADS: "1"
+        run: |
+          python scripts/run_alas_vcrelax_eo.py --np "${{ inputs.np }}" --out "artifacts/CVAL2_AlAs_vcrelax" || echo "exit $?"
+          cat "artifacts/CVAL2_AlAs_vcrelax/result.json" | head -200
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delC-CVAL2-AlAs-vcrelax
+          path: artifacts/CVAL2_AlAs_vcrelax
+          if-no-files-found: error
+          retention-days: 90

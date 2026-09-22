@@ -1,0 +1,34 @@
+&CONTROL
+   calculation = 'scf'
+   prefix      = 'alas_lda'
+   outdir      = './tmp/'
+   pseudo_dir  = '/work/pseudo'
+   verbosity   = 'high'
+   tstress     = .true.
+   tprnfor     = .true.
+/
+&SYSTEM
+   ibrav       = 0
+   nat         = 2
+   ntyp        = 2
+   ecutwfc     = 60.0
+   ecutrho     = 240.0
+   occupations = 'fixed'
+/
+&ELECTRONS
+   conv_thr    = 1.0d-10
+   mixing_beta = 0.7d0
+   electron_maxstep = 200
+/
+CELL_PARAMETERS angstrom
+ 0.0000000000  2.8300000000  2.8300000000
+ 2.8300000000  0.0000000000  2.8300000000
+ 2.8300000000  2.8300000000  0.0000000000
+ATOMIC_SPECIES
+Al 26.9815385 Al_LDA.upf
+As 74.9216 As_LDA.upf
+ATOMIC_POSITIONS crystal
+Al  0.0000000000  0.0000000000  0.0000000000
+As  0.2500000000  0.2500000000  0.2500000000
+K_POINTS automatic
+8 8 8 0 0 0

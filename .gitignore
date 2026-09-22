@@ -42,6 +42,20 @@ runs/delC/C3_LDA/**/dynmat.out
 runs/delC/C3_LDA/**/dynmat.err
 runs/delC/C3_LDA/**/mat.dyn*
 runs/delC/C3_LDA/**/tmp/
+runs/delC/CVAL2_testA_isolated_elop/artifact/
+runs/delC/CVAL2_testA_isolated_elop/pw.out
+runs/delC/CVAL2_testA_isolated_elop/ph.out
+runs/delC/CVAL2_testD_AlAs/**/artifact/
+runs/delC/CVAL2_testD_AlAs/**/pw.out
+runs/delC/CVAL2_testD_AlAs/**/pw.err
+runs/delC/CVAL2_testD_AlAs/**/ph.out
+runs/delC/CVAL2_testD_AlAs/**/ph.err
+runs/delC/CVAL2_testD_AlAs/**/vcrelax.out
+runs/delC/CVAL2_testD_AlAs/**/vcrelax.err
+runs/delC/CVAL2_testD_AlAs/**/dynmat.out
+runs/delC/CVAL2_testD_AlAs/**/dynmat.err
+runs/delC/CVAL2_testD_AlAs/**/mat.dyn*
+runs/delC/CVAL2_testD_AlAs/**/tmp/
 collected/
 artifacts/
 

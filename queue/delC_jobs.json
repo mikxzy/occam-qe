@@ -69,6 +69,45 @@
   "note": "starting geometry = B2 PBEsol-relaxed coordinates (initial guess only)",
   "vcrelax_in_sha256": "7f59561f79e2d8f93bc65fee9bc114a63f1af93db9251c1ade267402191fd68e"
  },
+ "CVAL2_AlAs_cutoff_ecut60_k6": {
+  "calc": "scf-alas-cutoff-check",
+  "dir": "runs/delC/CVAL2_testD_AlAs/cutoff_check/CVAL2_AlAs_cutoff_ecut60_k6",
+  "ecutwfc_Ry": 60.0,
+  "kgrid": [
+   6,
+   6,
+   6
+  ],
+  "pwin_sha256": "af3e3ba6bcfcbe29291cb9500e5710a5a79d13f9d0fd2877f382f09654f3b992"
+ },
+ "CVAL2_AlAs_cutoff_ecut60_k8": {
+  "calc": "scf-alas-cutoff-check",
+  "dir": "runs/delC/CVAL2_testD_AlAs/cutoff_check/CVAL2_AlAs_cutoff_ecut60_k8",
+  "ecutwfc_Ry": 60.0,
+  "kgrid": [
+   8,
+   8,
+   8
+  ],
+  "pwin_sha256": "c25d67d04a9dadef81922091b016f26428389c3232e192b86d7e60dd32723da2"
+ },
+ "CVAL2_AlAs_cutoff_ecut80_k8": {
+  "calc": "scf-alas-cutoff-check",
+  "dir": "runs/delC/CVAL2_testD_AlAs/cutoff_check/CVAL2_AlAs_cutoff_ecut80_k8",
+  "ecutwfc_Ry": 80.0,
+  "kgrid": [
+   8,
+   8,
+   8
+  ],
+  "pwin_sha256": "7b3716f1369d286a731320da7853c8c2c01bc681838c585e8a724e21036354ce"
+ },
+ "CVAL2_AlAs_vcrelax": {
+  "calc": "vc-relax-alas-lda",
+  "dir": "runs/delC/CVAL2_testD_AlAs/vcrelax",
+  "note": "starting geometry: zincblende, a=5.660 A (experimental, web-verified), ASE bulk()",
+  "vcrelax_in_sha256": "95b5640939bf76fb8ffb141e3ceb07a739036fa66b765cfa61bbd2accc26069e"
+ },
  "CVAL2_testA_isolated_elop": {
   "calc": "scf+dfpt-gamma-elop-only-lda",
   "dir": "runs/delC/CVAL2_testA_isolated_elop",
