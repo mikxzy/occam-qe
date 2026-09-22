@@ -98,6 +98,37 @@ module variable `eloptns(3,3,3)` used elsewhere. Symmetrization is applied via
 `symmatrix3` (crystal point-group symmetry) before printing — the printed tensor is
 already symmetry-reduced, not a raw unsymmetrized one.
 
+## C2 result: PBEsol fails, definitively and cleanly (not a numerical issue)
+
+Attempted on B2's geometry (`runs/delC/C2_PBEsol_EO`, GH Actions run
+[35681155435](https://github.com/mikxzy/occam-qe/actions/runs/35681155435)). `pw.x` SCF
+converged normally (96.8s, reproduced B2's known energy exactly: -476.39899426 Ry).
+`ph.x` failed after only 2.3s with:
+
+```
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     Error in routine phq_setup (1):
+     third order derivatives not implemented with GGA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
+
+This resolves the open question from §"Pseudopotential / XC requirements" above: the
+gate is not in `el_opt.f90` (which indeed has no functional check) but one level up, in
+`phq_setup.f90`, which refuses to even start the calculation for any GGA functional.
+PBEsol is a GGA (its XC potential depends on both ρ and ∇ρ), so its third-derivative XC
+kernel (the `d2mxc`/`aux3` term §"What `elop=.true.` actually computes" above) is simply
+not implemented in QE 7.5 for GGA — this is a hard "not implemented", not a convergence
+or numerical-stability problem. LDA's XC potential depends only on ρ, making that third
+derivative analytically simpler and implemented. **This confirms, empirically and
+precisely, that the "LDA + norm-conserving required" guidance was correct** — not
+because of a pseudopotential-family restriction, but because of an XC-functional-class
+restriction in `ph.x`'s third-order-response code path.
+
+**Decision: proceed to C3 (separate, self-consistent LDA/PZ NC branch).** No PBEsol
+component was changed to work around this (task rule: do not work around by changing
+only one pseudopotential or mixing functionals) — this is a clean stop, and C3 starts
+fresh with a fully LDA-consistent structure, pseudopotentials, and relaxation.
+
 ## What remains open, honestly
 
 * The exact one-line derivation of "2.7502" from `e2=2` Rydberg units was not

@@ -22,9 +22,30 @@ O.upf       O         d91e3e76b237bb20c22fd32187fa3ed08250014cd11e74d0e13f305ccd
 Verification: `sha256sum pseudo/*.upf` must reproduce the hashes above before any pw.x/ph.x
 job is dispatched (enforced by scripts/run_qe_job.py precondition check).
 
-Track B (LDA/PZ, norm-conserving) — for the DEL D elop=.true. smoke test
+Track B (LDA/PZ, norm-conserving) — required, confirmed by QE 7.5 itself (DEL C, C2/C3)
 --------------------------------------------------------------------------
-NOT YET SOURCED. Per task rule (DEL D), if `elop=.true.` requires LDA + norm-conserving,
-a separate, internally-consistent LDA/PZ NC pseudopotential set must be downloaded from the
-same PseudoDojo NC-SR v0.4 table (`xcf=pw`) and hashed here before Track B work starts.
-Do not reuse the PBEsol files above for an LDA calculation.
+C2 attempted `elop=.true.` on the PBEsol/B2 structure (Track A pseudopotentials) and QE
+7.5 refused outright: "Error in routine phq_setup (1): third order derivatives not
+implemented with GGA" (PBEsol is a GGA). This is a hard QE limitation, not a numerical
+issue -- see results/ELop_IMPLEMENTATION_NOTES.md. Track B is therefore required for any
+EO calculation, not merely a smoke-test fallback.
+
+Source table : PseudoDojo NC-SR v0.4, LDA (Perdew-Wang, xcf='pw'), "standard" accuracy
+Download URL : https://www.pseudo-dojo.org/pseudos/nc-sr-04_pw_standard_upf.tgz
+Generator    : ONCVPSP, scalar-relativistic v3.3.0, D.R. Hamann (same generator as Track A)
+XC functional: LDA -- verified from each UPF's PP_HEADER `functional="SLA  PW   NOGX NOGC"`
+               (Slater exchange + Perdew-Wang correlation, no gradient corrections =
+               local density approximation), identical for all three elements.
+Pseudo type  : NC for all three -- verified from `pseudo_type="NC"`, `is_paw="F"`.
+UPF format   : 2.0.1
+
+file            element   sha256
+----            -------   ------
+Li_LDA.upf      Li        37780dd2e739ed8d22ff3c839a09865111f653f96ed0c53c595f11c501abc087
+Nb_LDA.upf      Nb        2e7c93a913b0accc303859b18ac64e9c19bf37eecd5e32c059102870de527557
+O_LDA.upf       O         e1efa9b48cf0dd16e952fe3410d5e6bef8d48d8f8d44ba58e104b62f8ff7b7e3
+
+Filenames are suffixed `_LDA` deliberately (distinct from Track A's Li.upf/Nb.upf/O.upf)
+so a pw.in's ATOMIC_SPECIES block makes which family is in use unambiguous at a glance --
+do not reuse the PBEsol (Track A) files for an LDA calculation, and do not mix the two
+families within one calculation.
