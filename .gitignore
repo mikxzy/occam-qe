@@ -44,3 +44,17 @@ runs/delC/C3_LDA/**/mat.dyn*
 runs/delC/C3_LDA/**/tmp/
 collected/
 artifacts/
+
+# Narrative .md reports: kept locally, never pushed (repo owner's instruction, 2026-09-22).
+# CSV/JSON results, scripts, and QE inputs still get committed as usual -- this is
+# specifically the write-up documents.
+DEL_B_STRUCTURAL_RELAXATION.md
+DEL_C_ELECTRO_OPTIC_RESPONSE.md
+results/CONVERGENCE_SUMMARY.md
+results/ELop_IMPLEMENTATION_NOTES.md
+results/EO_CONVERSION.md
+results/eo_symmetry_check.md
+results/C8_dielectric_to_index.md
+results/C9_C10_finite_field.md
+results/C11_structural_contribution.md
+results/C12_structural_effect_on_EO.md
