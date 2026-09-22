@@ -1,0 +1,46 @@
+name: qe-cval4-abinit-gs
+# C-VAL4 Step 0/1: ABINIT ground-state SCF at the exact QE CVAL3_G1_k8 geometry,
+# identical pseudopotentials/cutoff/k-grid, for QE-vs-ABINIT parity check.
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: CVAL4_abinit_gs_G1
+        default: CVAL4_abinit_gs_G1
+        required: true
+      np:
+        description: MPI ranks
+        default: "4"
+        required: true
+
+jobs:
+  abinit_gs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ABINIT
+        run: |
+          mamba install -y -c conda-forge "abinit=10.0.3" openmpi numpy
+          mamba clean -afy
+          mkdir -p /work && ln -s "$GITHUB_WORKSPACE/pseudo" /work/pseudo
+          abinit --version
+      - name: Run ${{ inputs.job_id }}
+        env:
+          OMPI_ALLOW_RUN_AS_ROOT: "1"
+          OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+          OMP_NUM_THREADS: "1"
+        run: |
+          python scripts/run_cval4_abinit_gs.py --job "${{ inputs.job_id }}" --np "${{ inputs.np }}" --out "artifacts/${{ inputs.job_id }}" || echo "exit $?"
+          cat "artifacts/${{ inputs.job_id }}/result.json" | head -150
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delC-${{ inputs.job_id }}
+          path: artifacts/${{ inputs.job_id }}
+          if-no-files-found: error
+          retention-days: 90

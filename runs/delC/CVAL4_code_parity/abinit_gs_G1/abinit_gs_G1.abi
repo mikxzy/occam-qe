@@ -1,0 +1,50 @@
+# C-VAL4 Step 1: ABINIT ground-state SCF at the exact Veithen & Ghosez G1
+# geometry, identical PseudoDojo LDA UPF2 pseudopotentials, ecut/k-grid matched to
+# the QE CVAL3_G1_k8 job for like-for-like ground-state parity.
+
+ndtset 1
+
+# --- cell (Bohr; acell=1 so rprim carries the real vectors directly) ---
+acell 1.0 1.0 1.0
+rprim
+   4.787620792118   2.764134153123   8.642976763257
+  -4.787620792118   2.764134153123   8.642976763257
+   0.000000000000  -5.528268306245   8.642976763257
+
+# --- atoms ---
+natom 10
+ntypat 3
+znucl 3 41 8
+typat 1 1 2 2 3 3 3 3 3 3
+xred
+   0.2837000000   0.2837000000   0.2837000000
+   0.7837000000   0.7837000000   0.7837000000
+   1.0000000000   1.0000000000   1.0000000000
+   0.5000000000   0.5000000000   0.5000000000
+   0.2192000000   0.6077333333   0.8681666667
+   0.8681666667   0.2192000000   0.6077333333
+   0.6077333333   0.8681666667   0.2192000000
+   0.3681666667   0.1077333333   0.7192000000
+   0.1077333333   0.7192000000   0.3681666667
+   0.7192000000   0.3681666667   0.1077333333
+
+# --- plane-wave basis / electrons ---
+ecut 60.000000
+nband 42
+occopt 1
+nstep 200
+toldfe 1.0d-12
+diemac 6.0
+
+# --- k-points: unshifted 8x8x8, matches QE K_POINTS automatic 8 8 8 0 0 0 ---
+kptopt 1
+ngkpt 8 8 8
+nshiftk 1
+shiftk 0.0 0.0 0.0
+
+# --- pseudopotentials (identical UPF2 files used by the QE branch) ---
+pp_dirpath "/work/pseudo"
+pseudos "Li_LDA.upf", "Nb_LDA.upf", "O_LDA.upf"
+
+prtwf 1
+prtden 1

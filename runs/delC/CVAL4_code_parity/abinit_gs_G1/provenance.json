@@ -1,0 +1,29 @@
+{
+ "source_pwin": "runs/delC/CVAL3_geometry_parity/G1_k8/pw.in",
+ "source_pwin_sha256": "fc78dd0e5118ecf95659e9cd8532756d478ca4dd0c8d71446ebbc625594fa05f",
+ "pseudopotential_sha256": {
+  "Li": {
+   "filename": "Li_LDA.upf",
+   "sha256": "37780dd2e739ed8d22ff3c839a09865111f653f96ed0c53c595f11c501abc087"
+  },
+  "Nb": {
+   "filename": "Nb_LDA.upf",
+   "sha256": "2e7c93a913b0accc303859b18ac64e9c19bf37eecd5e32c059102870de527557"
+  },
+  "O": {
+   "filename": "O_LDA.upf",
+   "sha256": "e1efa9b48cf0dd16e952fe3410d5e6bef8d48d8f8d44ba58e104b62f8ff7b7e3"
+  }
+ },
+ "ecutwfc_ry_qe": 120.0,
+ "ecut_ha_abinit": 60.0,
+ "ngkpt": [
+  8,
+  8,
+  8
+ ],
+ "nband": 42,
+ "n_occ": 34,
+ "nelec_expected": 68,
+ "note": "Cell/positions transcribed directly from the frozen QE CVAL3_G1_k8 pw.in (bytes hashed above), not re-derived, to guarantee identical geometry input to both codes."
+}

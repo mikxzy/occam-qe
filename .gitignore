@@ -77,6 +77,13 @@ DEL_C-VAL_ELECTRO_OPTIC_VALIDATION.md
 DEL_C-VAL2_QE_DISCREPANCY_ISOLATION.md
 DEL_C-VAL3_GEOMETRY_PARITY.md
 TEST_F_PSEUDOPOTENTIAL_PARITY.md
+CVAL4_CODE_PARITY.md
+runs/delC/CVAL4_code_parity/**/artifact/
+runs/delC/CVAL4_code_parity/**/run.log
+runs/delC/CVAL4_code_parity/**/run.err
+runs/delC/CVAL4_code_parity/**/*.abo
+runs/delC/CVAL4_code_parity/**/abinit_gs_G1o_*
+runs/delC/CVAL4_code_parity/**/tmp/
 runs/delC/CVAL3_geometry_parity/*/artifact/
 runs/delC/CVAL3_geometry_parity/*/pw.out
 runs/delC/CVAL3_geometry_parity/*/pw.err
