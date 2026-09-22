@@ -1,0 +1,43 @@
+&CONTROL
+   calculation = 'scf'
+   prefix      = 'linbo3lda'
+   outdir      = './tmp/'
+   pseudo_dir  = '/work/pseudo'
+   verbosity   = 'high'
+   tstress     = .true.
+   tprnfor     = .true.
+/
+&SYSTEM
+   ibrav       = 0
+   nat         = 10
+   ntyp        = 3
+   ecutwfc     = 120.0
+   ecutrho     = 480.0
+   occupations = 'fixed'
+/
+&ELECTRONS
+   conv_thr    = 1.0d-10
+   mixing_beta = 0.7d0
+   electron_maxstep = 200
+/
+CELL_PARAMETERS angstrom
+ 2.5324923890  1.4621351620  4.5605197940
+-2.5324923890  1.4621351620  4.5605197940
+-0.0000000000 -2.9242703250  4.5605197940
+ATOMIC_SPECIES
+Li 6.94000 Li_LDA.upf
+Nb 92.90637 Nb_LDA.upf
+O 15.99900 O_LDA.upf
+ATOMIC_POSITIONS crystal
+Li  0.2642568293  0.2642568293  0.2642568293
+Li  0.7642568293  0.7642568293  0.7642568293
+Nb  0.9806569384 -0.0193430616 -0.0193430616
+Nb  0.4806569384  0.4806569384  0.4806569384
+O  0.0887692473  0.3490678658  0.7003491191
+O  0.7003491191  0.0887692473  0.3490678658
+O  0.3490678658  0.7003491191  0.0887692473
+O  0.2003491191  0.8490678658  0.5887692473
+O  0.5887692473  0.2003491191  0.8490678658
+O  0.8490678658  0.5887692473  0.2003491191
+K_POINTS automatic
+6 6 6 0 0 0

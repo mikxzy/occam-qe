@@ -1,4 +1,11 @@
 {
+ "C13_k6": {
+  "calc": "scf+dfpt-gamma-zeu-elop-lda-k6",
+  "dir": "runs/delC/C13_k6",
+  "note": "LDA-relaxed geometry (C3_vcrelax), k=6x6x6 vs production 4x4x4, for H0-C3",
+  "phin_sha256": "59fa0b7899b0947086981ca82b062a13c620de0219bacd509bcc646a0e0f4d90",
+  "pwin_sha256": "5deb465fd21d276cefd77bea379afe424783685a3f23281c40d95a39d42d78e6"
+ },
  "C2_PBEsol_EO": {
   "calc": "scf+dfpt-gamma-zeu-elop",
   "dir": "runs/delC/C2_PBEsol_EO",
