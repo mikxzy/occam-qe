@@ -1,0 +1,4 @@
+contribution,max_abs_diff_Ry_au,max_rel_diff_on_components_gt1
+total,0.00157,6.19e-06
+electronic,0.001571,8.02e-06
+xc_derivative,1e-06,3e-08
