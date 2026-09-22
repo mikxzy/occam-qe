@@ -128,7 +128,7 @@
   "calc": "vc-relax-alas-lda",
   "dir": "runs/delC/CVAL2_testD_AlAs/vcrelax",
   "note": "starting geometry: zincblende, a=5.660 A (experimental, web-verified), ASE bulk()",
-  "vcrelax_in_sha256": "95b5640939bf76fb8ffb141e3ceb07a739036fa66b765cfa61bbd2accc26069e"
+  "vcrelax_in_sha256": "5e3d2c240a32aa178ccd37e33dc36deafe19bcc955c655d722aece8c47a6a6b9"
  },
  "CVAL2_testA_isolated_elop": {
   "calc": "scf+dfpt-gamma-elop-only-lda",

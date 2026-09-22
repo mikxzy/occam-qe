@@ -36,8 +36,8 @@ CLEAN_SCF_TEMPLATE = """&CONTROL
    ibrav       = 0
    nat         = {nat}
    ntyp        = 2
-   ecutwfc     = 60.0
-   ecutrho     = 240.0
+   ecutwfc     = 100.0
+   ecutrho     = 400.0
    occupations = 'fixed'
 /
 &ELECTRONS
