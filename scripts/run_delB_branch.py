@@ -153,9 +153,11 @@ def main():
     final_cell = rr["final_cell_A"] if rr["final_cell_A"] is not None else _cell_from_input(d / relax_file)
     final_symbols, final_frac = rr["final_symbols"], rr["final_frac"]
     a_len, b_len, c_len, alpha, beta, gamma = cellpar(final_cell)
+    import numpy as _np
+    final_volume = rr["final_volume_A3"] if rr["final_volume_A3"] is not None else float(abs(_np.linalg.det(final_cell)))
     res["final_structure"] = dict(
         cell_A=final_cell.tolist(), a=a_len, b=b_len, c=c_len, alpha=alpha, beta=beta, gamma=gamma,
-        volume_A3=rr["final_volume_A3"], symbols=final_symbols, frac=final_frac.tolist(),
+        volume_A3=final_volume, symbols=final_symbols, frac=final_frac.tolist(),
     )
 
     # ---- stage 2: clean SCF on the relaxed structure
