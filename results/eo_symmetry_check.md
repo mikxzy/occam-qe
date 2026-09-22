@@ -39,6 +39,22 @@ This matches the standard class-3m result found in tensor-property references (e
 
 ## Comparison against QE's raw output
 
-*(Filled in once C2 succeeds — this section reports which of QE's raw output components
-land in the theoretically forbidden set and by how much, using an explicit numerical zero
-tolerance defined at that point relative to the smallest allowed nonzero component.)*
+C2 (PBEsol) never produced a tensor (GGA not implemented, see
+`ELop_IMPLEMENTATION_NOTES.md`). Checked against both completed LDA (C3) branches —
+`LDA@PBEsol-geometry` and `LDA@LDA-relaxed` — using `scripts/eo_analysis.py`, with a
+numerical-zero tolerance of 1.0 Ry a.u. (roughly 2.75 pm/V raw, well below the smallest
+allowed nonzero component, ~250-420 Ry a.u. — see `results/eo_tensor_converted.csv`).
+
+**Result: 0 of 36 checked slots (2 branches × 18 (i,j)-pair×field-direction combinations)
+violate the symmetry-forbidden set.** Every one of the 14 theoretically-zero components
+came out at machine-precision noise (≤6×10⁻⁸ Ry a.u.) in both branches — QE's internal
+`symmatrix3` symmetrization is doing exactly what it should.
+
+The 4 independent parameters resolve cleanly and match their required equalities to
+5+ significant figures (e.g. `LDA@LDA-relaxed`: r1y=-22.4675 pm/V = -r6x exactly;
+r2y=+22.4675 pm/V = -r1y exactly; r1z=r2z=+35.0157 pm/V exactly; r5x=r4y=+35.3054 pm/V
+exactly). Full raw values: `results/eo_tensor_raw.csv`/`.json`; converted r_μk (pm/V):
+`results/eo_tensor_converted.csv`.
+
+**H0-C4 (calculated tensor obeys the expected crystal symmetry within numerical
+tolerance): PASS**, for both completed branches.
