@@ -83,6 +83,16 @@ runs/delC/CVAL4_code_parity/**/run.log
 runs/delC/CVAL4_code_parity/**/run.err
 runs/delC/CVAL4_code_parity/**/*.abo
 runs/delC/CVAL4_code_parity/**/abinit_gs_G1o_*
+runs/delC/CVAL4_code_parity/**/abinit_pead_G1o_*
+runs/delC/CVAL4_code_parity/**/run_ds14.log
+runs/delC/CVAL4_code_parity/**/run_ds14.err
+runs/delC/CVAL4_code_parity/**/run_ds5.log
+runs/delC/CVAL4_code_parity/**/run_ds5.err
+runs/delC/CVAL4_code_parity/**/artifact_ds14/
+runs/delC/CVAL4_code_parity/**/artifact_ds5/
+runs/delC/CVAL4_code_parity/**/artifact_anaddb/
+runs/delC/CVAL4_code_parity/**/mrgddb.*
+runs/delC/CVAL4_code_parity/**/anaddb_*_dummy
 runs/delC/CVAL4_code_parity/**/tmp/
 runs/delC/CVAL3_geometry_parity/*/artifact/
 runs/delC/CVAL3_geometry_parity/*/pw.out

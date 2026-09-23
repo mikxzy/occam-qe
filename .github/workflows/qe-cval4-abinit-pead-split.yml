@@ -1,0 +1,71 @@
+name: qe-cval4-abinit-pead-split
+# C-VAL4 Step 2 v4: checkpointed two-job split (ds1-4, then ds5+mrgddb+anaddb),
+# after three single-job attempts were lost to GH-hosted runners' 6h hard timeout.
+
+on:
+  workflow_dispatch:
+    inputs:
+      np:
+        description: MPI ranks
+        default: "4"
+        required: true
+
+jobs:
+  ds14:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ABINIT
+        run: |
+          mamba install -y -c conda-forge "abinit=10.0.3" numpy
+          mamba clean -afy
+          mkdir -p /work && ln -s "$GITHUB_WORKSPACE/pseudo" /work/pseudo
+      - name: Run datasets 1-4
+        env:
+          OMP_NUM_THREADS: "1"
+        run: |
+          python scripts/run_cval4_abinit_pead_ds14.py --np "${{ inputs.np }}" --out "artifacts/ds14" || echo "exit $?"
+          cat "artifacts/ds14/result.json" | head -100
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delC-CVAL4_abinit_pead_G1_ds14
+          path: artifacts/ds14
+          if-no-files-found: error
+          retention-days: 90
+
+  ds5_anaddb:
+    needs: ds14
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: delC-CVAL4_abinit_pead_G1_ds14
+          path: runs/delC/CVAL4_code_parity/abinit_pead_G1
+      - name: Install ABINIT
+        run: |
+          mamba install -y -c conda-forge "abinit=10.0.3" numpy
+          mamba clean -afy
+          mkdir -p /work && ln -s "$GITHUB_WORKSPACE/pseudo" /work/pseudo
+      - name: Run dataset 5 + mrgddb + anaddb
+        env:
+          OMP_NUM_THREADS: "1"
+        run: |
+          python scripts/run_cval4_abinit_pead_ds5.py --np "${{ inputs.np }}" --out "artifacts/ds5" || echo "exit $?"
+          cat "artifacts/ds5/result.json" | head -100
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delC-CVAL4_abinit_pead_G1_ds5
+          path: artifacts/ds5
+          if-no-files-found: error
+          retention-days: 90

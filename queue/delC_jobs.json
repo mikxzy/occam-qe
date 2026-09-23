@@ -163,6 +163,18 @@
   "dir": "runs/delC/CVAL4_code_parity/abinit_pead_G1",
   "note": "C-VAL4 Step 2 (ABINIT_PEAD label): purely electronic clamped-ion chi2_eee via ABINIT's PEAD (usepead=1 default) route, elfd-elfd-elfd perturbation only, at the exact QE CVAL3_G1_k8 geometry/cutoff/k-grid."
  },
+ "CVAL4_abinit_pead_G1_ds14": {
+  "abi_sha256": "2feb5c27db6ee45e7132dc632b024744c0784bdf008726f786b34350ec53e596",
+  "calc": "abinit-pead-electronic-nlo-ds1to4-checkpoint",
+  "dir": "runs/delC/CVAL4_code_parity/abinit_pead_G1",
+  "note": "C-VAL4 Step 2 part 1/2: ground state through electric-field DFPT response (datasets 1-4), checkpointed for a separate dataset-5 job."
+ },
+ "CVAL4_abinit_pead_G1_ds5": {
+  "abi_sha256": "e83688c2364f0095f2cfd90932b188526181c9868df8e9f54a37ce7b2a001d4f",
+  "calc": "abinit-pead-electronic-nlo-ds5-from-checkpoint",
+  "dir": "runs/delC/CVAL4_code_parity/abinit_pead_G1",
+  "note": "C-VAL4 Step 2 part 2/2: 3rd-order (electronic chi2_eee) response, reading ds14's checkpointed WF/DEN files."
+ },
  "CVAL4_qe_gap_G1": {
   "calc": "scf-only-nbnd42-gap-check",
   "dir": "runs/delC/CVAL4_code_parity/qe_gap_G1",

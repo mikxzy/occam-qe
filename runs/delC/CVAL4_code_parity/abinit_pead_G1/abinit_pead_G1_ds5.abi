@@ -1,0 +1,66 @@
+# C-VAL4 Step 2 (part 2/2): ABINIT PEAD 3rd-order (electronic chi2_eee) response.
+# Reads dataset 1-4's saved WF/DEN files (this job's working directory must already
+# contain abinit_pead_G1o_DS2_WF*, abinit_pead_G1o_DS4_1WF*, abinit_pead_G1o_DS4_DEN*
+# from the ds14 part -- carried forward via GH Actions artifact, not recomputed).
+# jdtset 5 keeps ABINIT's "_DS5_" file-naming/get-variable convention identical to
+# the single-job version, so getwfk5/get1den5/get1wf5 resolve exactly as before.
+
+ndtset 1
+jdtset 5
+
+#DATASET5 : 3rd-order derivative of E, electric field triple perturbation only
+#           (d3e_pert1_phon / d3e_pert1_atpol deliberately omitted -- this gives
+#           chi2_eee, the purely electronic clamped-ion nonlinear susceptibility)
+   getwfk5           2
+  get1den5           4
+   get1wf5           4
+   kptopt5           2
+optdriver5           5
+  d3e_pert1_elfd5    1
+  d3e_pert2_elfd5    1
+  d3e_pert3_elfd5    1
+
+# --- cell (Bohr; acell=1 so rprim carries the real vectors directly) ---
+acell 1.0 1.0 1.0
+rprim
+   4.787620792118   2.764134153123   8.642976763257
+  -4.787620792118   2.764134153123   8.642976763257
+   0.000000000000  -5.528268306245   8.642976763257
+
+# --- atoms ---
+natom 10
+ntypat 3
+znucl 3 41 8
+typat 1 1 2 2 3 3 3 3 3 3
+xred
+   0.2837000000   0.2837000000   0.2837000000
+   0.7837000000   0.7837000000   0.7837000000
+   1.0000000000   1.0000000000   1.0000000000
+   0.5000000000   0.5000000000   0.5000000000
+   0.2192000000   0.6077333333   0.8681666667
+   0.8681666667   0.2192000000   0.6077333333
+   0.6077333333   0.8681666667   0.2192000000
+   0.3681666667   0.1077333333   0.7192000000
+   0.1077333333   0.7192000000   0.3681666667
+   0.7192000000   0.3681666667   0.1077333333
+
+# --- plane-wave basis / electrons ---
+ecut 60.000000
+nband 34
+nbdbuf 0
+occopt 1
+nstep 200
+
+# --- k-points: unshifted 8x8x8, matches QE K_POINTS automatic 8 8 8 0 0 0 ---
+ngkpt 8 8 8
+nshiftk 1
+shiftk 0.0 0.0 0.0
+
+# --- pseudopotentials (identical UPF2 files used by the QE and ABINIT-GS branches) ---
+pp_dirpath "/work/pseudo"
+pseudos "Li_LDA.upf, Nb_LDA.upf, O_LDA.upf"
+
+prtwf 0
+prtden 0
+prteig 0
+prtddb 1

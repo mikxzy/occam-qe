@@ -1,0 +1,84 @@
+# C-VAL4 Step 2 (part 1/2): ABINIT PEAD ground state through electric-field
+# DFPT response (datasets 1-4). Split from the single 5-dataset run to checkpoint
+# across a GH Actions job boundary -- this part carries essentially all the compute
+# cost (dataset 4's DFPT response is iterative; dataset 5 is not).
+
+ndtset 4
+jdtset 1 2 3 4
+
+#DATASET1 : scf calculation: GS WF in the IBZ
+   prtden1    1
+    prtwf1    1
+   kptopt1    1
+   toldfe1    1.0d-12
+
+#DATASET2 : non-scf calculation: GS WF in half BZ (time-reversal only)
+   getden2    1
+   kptopt2    2
+   getwfk2    1
+     iscf2   -2
+   tolwfr2    1.0d-22
+    prtwf2    1
+
+#DATASET3 : d/dk derivative of WF (needed for electric-field response)
+   getwfk3    2
+   kptopt3    2
+   rfelfd3    2
+   tolwfr3    1.0d-22
+    prtwf3    1
+
+#DATASET4 : 1st-order WF response to electric field ONLY (rfphon/rfstrs
+#           deliberately omitted -- purely electronic/clamped-ion response)
+   getwfk4    2
+   kptopt4    2
+   getddk4    3
+   rfelfd4    3
+   tolvrs4    1.0d-12
+  prepanl4    1
+    prtwf4    1
+   prtden4    1
+
+# --- cell (Bohr; acell=1 so rprim carries the real vectors directly) ---
+acell 1.0 1.0 1.0
+rprim
+   4.787620792118   2.764134153123   8.642976763257
+  -4.787620792118   2.764134153123   8.642976763257
+   0.000000000000  -5.528268306245   8.642976763257
+
+# --- atoms ---
+natom 10
+ntypat 3
+znucl 3 41 8
+typat 1 1 2 2 3 3 3 3 3 3
+xred
+   0.2837000000   0.2837000000   0.2837000000
+   0.7837000000   0.7837000000   0.7837000000
+   1.0000000000   1.0000000000   1.0000000000
+   0.5000000000   0.5000000000   0.5000000000
+   0.2192000000   0.6077333333   0.8681666667
+   0.8681666667   0.2192000000   0.6077333333
+   0.6077333333   0.8681666667   0.2192000000
+   0.3681666667   0.1077333333   0.7192000000
+   0.1077333333   0.7192000000   0.3681666667
+   0.7192000000   0.3681666667   0.1077333333
+
+# --- plane-wave basis / electrons ---
+ecut 60.000000
+nband 34
+nbdbuf 0
+occopt 1
+nstep 200
+
+# --- k-points: unshifted 8x8x8, matches QE K_POINTS automatic 8 8 8 0 0 0 ---
+ngkpt 8 8 8
+nshiftk 1
+shiftk 0.0 0.0 0.0
+
+# --- pseudopotentials (identical UPF2 files used by the QE and ABINIT-GS branches) ---
+pp_dirpath "/work/pseudo"
+pseudos "Li_LDA.upf, Nb_LDA.upf, O_LDA.upf"
+
+prtwf 0
+prtden 0
+prteig 0
+prtddb 1
