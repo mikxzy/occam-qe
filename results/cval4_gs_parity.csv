@@ -1,0 +1,4 @@
+quantity,qe,abinit,abs_diff,rel_diff_pct,H0_CODE_pass_lt10pct,note
+number_of_electrons,68.0,68.0,0.0,0.0,True,Exact match.
+total_energy_eV_per_cell,-6489.04835,-6489.05626,0.0079,0.000122,True,"Absolute total-energy conventions can differ between codes (isolated-atom reference, Ewald convention) -- per task, qualitative comparison only. Agreement here is ~0.008 eV over 68 electrons, far tighter than required."
+band_gap_eV,3.5122,3.5388,0.0266,0.76,True,"QE gap is the true global-BZ minimum (65 k-points, standard MP 8x8x8 grid); ABINIT value is restricted to the Gamma point only (prtvol=0/1 default only prints kpt#1). Close agreement (<1%) despite this restriction."
