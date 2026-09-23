@@ -1,0 +1,32 @@
+{
+ "source_pwin": "runs/delC/CVAL3_geometry_parity/G1_k8/pw.in",
+ "source_pwin_sha256": "fc78dd0e5118ecf95659e9cd8532756d478ca4dd0c8d71446ebbc625594fa05f",
+ "dataset_template_source": "github.com/abinit/abinit tests/tutorespfn/Input/tnlo_2.abi (fetched verbatim, authors incl. M. Veithen); rfphon4/rfstrs4 and d3e_pert1_phon5/d3e_pert1_atpol5 removed for electronic-only response",
+ "pseudopotential_sha256": {
+  "Li": {
+   "filename": "Li_LDA.upf",
+   "sha256": "37780dd2e739ed8d22ff3c839a09865111f653f96ed0c53c595f11c501abc087"
+  },
+  "Nb": {
+   "filename": "Nb_LDA.upf",
+   "sha256": "2e7c93a913b0accc303859b18ac64e9c19bf37eecd5e32c059102870de527557"
+  },
+  "O": {
+   "filename": "O_LDA.upf",
+   "sha256": "e1efa9b48cf0dd16e952fe3410d5e6bef8d48d8f8d44ba58e104b62f8ff7b7e3"
+  }
+ },
+ "ecutwfc_ry_qe": 120.0,
+ "ecut_ha_abinit": 60.0,
+ "ngkpt": [
+  8,
+  8,
+  8
+ ],
+ "nband": 34,
+ "nbdbuf": 0,
+ "nelec_expected": 68,
+ "method": "ABINIT_PEAD",
+ "usepead_default": true,
+ "perturbations": "d3e_pert{1,2,3}_elfd only -- chi2_eee purely electronic clamped-ion tensor"
+}

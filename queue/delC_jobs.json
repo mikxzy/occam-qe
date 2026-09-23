@@ -156,5 +156,11 @@
   "calc": "abinit-scf-groundstate-parity-check",
   "dir": "runs/delC/CVAL4_code_parity/abinit_gs_G1",
   "note": "Step 0/1 of C-VAL4: ABINIT ground-state SCF at exact QE CVAL3_G1_k8 geometry/cutoff/k-grid/pseudopotentials, for eigenvalue/electron-count/dielectric-tensor parity check before any nonlinear-response comparison."
+ },
+ "CVAL4_abinit_pead_G1": {
+  "abi_sha256": "482bcd08b19c4b48a70a764aa382a9259fed043e1eacbf4133e2e8db8a211f5e",
+  "calc": "abinit-pead-electronic-nlo-5dataset",
+  "dir": "runs/delC/CVAL4_code_parity/abinit_pead_G1",
+  "note": "C-VAL4 Step 2 (ABINIT_PEAD label): purely electronic clamped-ion chi2_eee via ABINIT's PEAD (usepead=1 default) route, elfd-elfd-elfd perturbation only, at the exact QE CVAL3_G1_k8 geometry/cutoff/k-grid."
  }
 }
