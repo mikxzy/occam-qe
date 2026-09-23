@@ -1,0 +1,5 @@
+quantity,QE,ABINIT_PEAD_caseA_chi2eqd,ABINIT_PEAD_caseB_chi2eq2d,Veithen_reference_electronic,QE_over_Veithen,ABINIT_caseB_over_Veithen,ABINIT_over_QE_caseB,H0_CODE_pass_lt10pct
+r22,17.928,0.988,1.977,,n/a (Veithen r22 not tabulated),n/a,0.11,False
+r13,37.647,6.456,12.911,1.4,26.9,9.2,0.34,False
+r51,37.647,6.456,12.911,1.0,37.6,12.9,0.34,False
+r33,34.763,24.907,49.814,0.2,173.8,249.1,1.43,False
