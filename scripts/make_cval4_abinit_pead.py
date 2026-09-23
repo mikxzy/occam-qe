@@ -11,6 +11,13 @@ rfphon4/rfstrs4 (phonon/strain response) and d3e_pert1_phon5/d3e_pert1_atpol5
 electronic/clamped-ion response only (no atomic relaxation, no phonon-mediated
 contribution, no piezoelectric contribution).
 
+v2: added `prtddb 1` so datasets 4/5 write DDB files, enabling a proper mrgddb+anaddb
+(nlflag=1) post-processing pass instead of a hand-derived d-to-r conversion. The
+first electronic-only run (no prtddb) produced no DDB at all -- prtddb is NOT
+default-on in ABINIT, confirmed via docs.abinit.org/variables/files. This does not
+add rfphon/rfstrs back; anaddb's electronic EO output (first term of Veithen Eq. 3)
+only needs the dielectric (rfelfd) + 3rd-order (optdriver=5) blocks already present.
+
     python scripts/make_cval4_abinit_pead.py
 """
 from __future__ import annotations
@@ -164,6 +171,7 @@ pseudos "{', '.join(pp_paths)}"
 prtwf 0
 prtden 0
 prteig 0
+prtddb 1
 """
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)

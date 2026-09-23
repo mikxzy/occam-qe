@@ -1,4 +1,11 @@
-"""C-VAL4 Step 2: run the ABINIT PEAD electronic-only nonlinear-response job.
+"""C-VAL4 Step 2: run the ABINIT PEAD electronic-only nonlinear-response job, then
+merge the resulting DDB files (mrgddb) and run anaddb (dieflag=1, nlflag=1) to get
+ABINIT's own authoritative electronic EO tensor -- no hand-derived d-to-chi2
+conversion. mrgddb/anaddb input structure (files-file format, dummy placeholder
+files) copied verbatim from ABINIT's own official tutorial test chain
+(tests/tutorespfn/Input/tnlo_3.abi, tnlo_4.abi, tnlo_4.files), restricted to
+dieflag+nlflag only since this DDB has no phonon/strain (rfphon/rfstrs) data -- only
+the electronic contribution is being sought here, per instruction.
 
 Do NOT run until Step 1 (ground-state parity, run_cval4_abinit_gs.py) has confirmed
 QE and ABINIT agree on electron count / eigenvalues / dielectric tensor -- per the
@@ -56,7 +63,8 @@ def main():
         sys.exit(4)
 
     for f in list(d.glob("abinit_pead_G1.abo")) + list(d.glob("abinit_pead_G1o_*")) + \
-             list(d.glob("run.log")) + list(d.glob("run.err")):
+             list(d.glob("run.log")) + list(d.glob("run.err")) + \
+             list(d.glob("mrgddb.*")) + list(d.glob("anaddb.*")):
         f.unlink()
 
     t0 = time.time()
@@ -69,9 +77,6 @@ def main():
     abo_path = next(iter(d.glob("abinit_pead_G1.abo")), None) or (d / "run.log")
     abo_text = abo_path.read_text(errors="ignore") if abo_path.exists() else ""
     res["converged"] = "Calculation completed" in abo_text or "have converged" in abo_text.lower()
-    # raw text of the ndtset=5 section retained verbatim for manual tensor extraction
-    # (output format for d3e/chi2 not yet parsed programmatically -- first priority is
-    # confirming the run completes and produces a DATASET 5 section at all)
     res["dataset5_present"] = "DATASET  5" in abo_text or "jdtset  5" in abo_text or "optdriver" in abo_text
 
     why = []
@@ -80,13 +85,53 @@ def main():
     if not res["converged"]:
         why.append("no completion marker found in output")
 
+    # --- mrgddb: merge DS4_DDB (dielectric) + DS5_DDB (3rd-order) ---
+    ddb4 = next(iter(d.glob("abinit_pead_G1o_DS4_DDB")), None)
+    ddb5 = next(iter(d.glob("abinit_pead_G1o_DS5_DDB")), None)
+    res["ddb4_present"] = ddb4 is not None
+    res["ddb5_present"] = ddb5 is not None
+    if not why and ddb4 and ddb5:
+        (d / "mrgddb.in").write_text(
+            "merged.ddb\nC-VAL4 PEAD electronic-only: dielectric (DS4) + 3rd-order (DS5)\n2\n"
+            "abinit_pead_G1o_DS4_DDB\nabinit_pead_G1o_DS5_DDB\n", newline="\n")
+        pm = subprocess.run(f'cd "{d}" && mrgddb < mrgddb.in > mrgddb.log 2> mrgddb.err', shell=True)
+        res["mrgddb_exit_code"] = pm.returncode
+        if pm.returncode != 0 or not (d / "merged.ddb").exists():
+            why.append("mrgddb failed or produced no merged.ddb")
+    else:
+        why.append("DS4_DDB or DS5_DDB missing -- mrgddb skipped")
+
+    # --- anaddb: dieflag=1 + nlflag=1 only (electronic EO/dielectric; this DDB has
+    # no phonon/strain data, so ifcflag/elaflag/piezoflag/ramansr are NOT requested) ---
+    if not why:
+        anaddb_in = (
+            "dieflag  1\n"
+            "nlflag   1\n"
+        )
+        (d / "anaddb.in").write_text(anaddb_in, newline="\n")
+        for dummy in ["anaddb_thm_dummy", "anaddb_gkk_dummy", "anaddb_ep_dummy", "anaddb_ddk_dummy"]:
+            (d / dummy).write_text("", newline="\n")
+        (d / "anaddb.files").write_text(
+            "anaddb.in\nanaddb.abo\nmerged.ddb\nanaddb_thm_dummy\nanaddb_gkk_dummy\n"
+            "anaddb_ep_dummy\nanaddb_ddk_dummy\n", newline="\n")
+        pa = subprocess.run(f'cd "{d}" && anaddb < anaddb.files > anaddb.log 2> anaddb.err', shell=True)
+        res["anaddb_exit_code"] = pa.returncode
+        anaddb_abo = d / "anaddb.abo"
+        res["anaddb_abo_present"] = anaddb_abo.exists()
+        if pa.returncode != 0 or not anaddb_abo.exists():
+            why.append("anaddb failed or produced no anaddb.abo")
+
     res["integrity"] = dict(ok=not why, issues=why)
     res["status"] = "DONE" if not why else "FAILED"
     res["reason"] = "ok" if res["status"] == "DONE" else "; ".join(why)
     res["ended"] = time.strftime("%Y-%m-%dT%H:%M:%S")
 
     for f in list(d.glob("abinit_pead_G1.abi")) + list(d.glob("abinit_pead_G1.abo")) + \
-             list(d.glob("run.log")) + list(d.glob("run.err")):
+             list(d.glob("run.log")) + list(d.glob("run.err")) + \
+             list(d.glob("abinit_pead_G1o_DS4_DDB")) + list(d.glob("abinit_pead_G1o_DS5_DDB")) + \
+             list(d.glob("mrgddb.in")) + list(d.glob("mrgddb.log")) + list(d.glob("mrgddb.err")) + \
+             list(d.glob("merged.ddb")) + list(d.glob("anaddb.in")) + list(d.glob("anaddb.files")) + \
+             list(d.glob("anaddb.abo")) + list(d.glob("anaddb.log")) + list(d.glob("anaddb.err")):
         shutil.copy(f, out / f.name)
     json.dump(res, open(out / "result.json", "w"), indent=1, default=str)
     print(json.dumps({k: v for k, v in res.items() if k != "job"}, indent=1, default=str))

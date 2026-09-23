@@ -95,3 +95,4 @@ pseudos "Li_LDA.upf, Nb_LDA.upf, O_LDA.upf"
 prtwf 0
 prtden 0
 prteig 0
+prtddb 1
