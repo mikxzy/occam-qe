@@ -1,0 +1,33 @@
+name: qe-cval4-abinit-anaddb
+# C-VAL4 Step 2 post-processing: mrgddb + anaddb (dieflag=1, nlflag=1) on the DS4/DS5
+# DDB files already committed to the repo from the (long) qe-cval4-abinit-pead run.
+# Short job -- kept separate from the ~5h abinit run to stay clear of the GH-hosted
+# runner's 6h hard timeout.
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  anaddb:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: condaforge/miniforge3:latest
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ABINIT (provides mrgddb/anaddb)
+        run: |
+          mamba install -y -c conda-forge "abinit=10.0.3" numpy
+          mamba clean -afy
+      - name: Run mrgddb + anaddb
+        run: |
+          python scripts/run_cval4_abinit_anaddb.py --out "artifacts/CVAL4_abinit_anaddb_G1" || echo "exit $?"
+          cat "artifacts/CVAL4_abinit_anaddb_G1/result.json" | head -80
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delC-CVAL4_abinit_anaddb_G1
+          path: artifacts/CVAL4_abinit_anaddb_G1
+          if-no-files-found: error
+          retention-days: 90

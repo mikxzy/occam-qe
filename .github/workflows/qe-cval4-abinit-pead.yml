@@ -18,7 +18,7 @@ on:
 jobs:
   abinit_pead:
     runs-on: ubuntu-latest
-    timeout-minutes: 330
+    timeout-minutes: 355
     container:
       image: condaforge/miniforge3:latest
       options: --user root
